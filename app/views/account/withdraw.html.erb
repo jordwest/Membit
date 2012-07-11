@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="offset2 span8">
+    <h1>Withdraw Participation</h1>
+
+    <p>Participation in this study is completely voluntary. Should you wish to withdraw from the study you may do so
+      without penalty at any time by clicking the "Withdraw Participation" button below.</p>
+
+    <p>Note that if you do so, <strong>all data associated with your account will be immediately deleted</strong> and will not
+      be included in the final study. <strong>You will no longer be able to log in to the system and your log in code will no longer
+      work.</strong></p>
+
+    <p>If you have any questions regarding withdrawal, or any difficulties using this function, please contact
+      Jordan West at <a href="mailto:jordan.west@uqconnect.edu.au">jordan.west@uqconnect.edu.au</a>.</p>
+
+    <div class="withdrawal-buttons">
+      <form>
+        <div>
+          <a class="btn btn-large" href="#">Return to Home Page</a>
+        </div>
+        <div>
+          <%= hidden_field_tag 'confirm', "1" %>
+          <input type="submit" class="btn btn-danger btn-large" value="Withdraw Participation">
+        </div>
+      </form>
+    </div>
+  </div>
+</div><!--/row-->
+
