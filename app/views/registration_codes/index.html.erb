@@ -1,0 +1,62 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="offset2 span8">
+    <h1>Registration Codes</h1>
+
+    <p>Showing <%= @record_count %> records</p>
+    <p>
+    <h3>Record Types</h3>
+      <% @roles_count.each do |key, count| %>
+          <%= count %> <%= key.capitalize %> records<br/>
+      <% end %>
+    </p>
+
+    <p>
+    <h3>Tags</h3>
+      <ul>
+        <% @tag_list.each do |tag_desc| %>
+            <li><%= tag_desc.tag || 'none' %></li>
+        <% end %>
+      </ul>
+    </p>
+    <%= form_tag({:action => 'print', :format => :pdf}, :method => :post) do |form| %>
+        <%= hidden_field_tag 'mark_as_printed', '1' %>
+        <table class="table table-condensed table-bordered" id="registration-codes-table">
+          <thead>
+            <tr>
+              <th>Print</th>
+              <th>Code</th>
+              <th>Tag</th>
+              <th>User type</th>
+              <th>Created</th>
+              <th>Code registered</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @codes.each do |code| %>
+              <%
+                 row_classes = []
+                 row_classes.append 'printed' if code.printed?
+                 row_classes.append 'used' if code.used?
+              %>
+                <%= content_tag 'tr', :class => row_classes do %>
+                  <td>
+                    <input type="checkbox" name="codes[]" value="<%= code.id %>" />
+                  </td>
+                  <td><%= code.code %></td>
+                  <td><%= code.tag %></td>
+                  <td><%= code.role.to_s.capitalize %></td>
+                  <td><%= code.created_at %></td>
+                  <td>
+                    <%= "Used" if code.used? %>
+                    <%= "Available" if !code.used? %>
+                  </td>
+                <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="form-actions">
+          <%= submit_tag "Print", :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+  </div>
+</div><!--/row-->

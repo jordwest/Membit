@@ -1,7 +1,17 @@
 Membit::Application.routes.draw do
-  get "account/withdraw"
+  get "log_in" => "session#create"
+  get "log_out" => "session#destroy"
+  get "register" => "account#new"
 
-  get "home/index"
+  get "account/withdraw" => "account#withdraw"
+
+  resources :account
+  resources :session
+  resources :registration_codes do
+    member do
+      post 'print'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,15 @@
+// Place all the styles related to the registration_code controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table#registration-codes-table
+{
+  tr.printed {
+    color: #aaa;
+  }
+
+  tr.used {
+    text-decoration: line-through;
+  }
+}
+

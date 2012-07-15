@@ -1,0 +1,6 @@
+<%= form_tag '/registration_codes' do %>
+    <%= select_tag 'role', options_for_select(@roles) %><br/>
+    Number to create: <%= number_field_tag 'count' %><br/>
+    Tag new records: <%= text_field_tag 'tag' %>
+    <%= submit_tag 'Generate' %>
+<% end %>

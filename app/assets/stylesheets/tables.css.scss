@@ -1,0 +1,14 @@
+// Only the Bootstrap styled tables
+table.table
+{
+  tbody.ui-selectable {
+
+
+    tr.ui-selected, tr.ui-selecting {
+      background-color: rgba(106, 111, 251, 0.38);
+      &:hover td {
+        background-color: rgba(106, 111, 251, 0.67);
+      }
+    }
+  }
+}

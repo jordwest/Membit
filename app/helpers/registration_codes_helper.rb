@@ -1,0 +1,2 @@
+module RegistrationCodesHelper
+end
