@@ -3,16 +3,18 @@ class RegistrationCode < ActiveRecord::Base
 
   validates_uniqueness_of :code
   validates_presence_of :code, :role
+  validates_inclusion_of :printed, :used, :in => [true, false]
 
   classy_enum_attr :role
 
-  scope :unprinted, where('printed is not ?', true)
+  scope :unprinted, where('printed' => false)
 
   # @param [Symbol] role The role that the created user will be given
   def self.generate(role)
     newCode = self.new
     newCode.role = role
     newCode.used = false
+    newCode.printed = false
     newCode.generate
     return newCode
   end
