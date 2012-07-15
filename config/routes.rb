@@ -7,11 +7,9 @@ Membit::Application.routes.draw do
 
   resources :account
   resources :session
-  resources :registration_codes do
-    member do
-      post 'print'
-    end
-  end
+
+  match "registration_codes" => 'registration_codes#mark', :via => :put
+  resources :registration_codes
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

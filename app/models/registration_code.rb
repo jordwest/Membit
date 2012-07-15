@@ -1,4 +1,6 @@
 class RegistrationCode < ActiveRecord::Base
+  attr_accessible :printed, :tag
+
   validates_uniqueness_of :code
   validates_presence_of :code, :role
 

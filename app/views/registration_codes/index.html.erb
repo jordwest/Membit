@@ -1,5 +1,5 @@
 <div class="row" xmlns="http://www.w3.org/1999/html">
-  <div class="offset2 span8">
+  <div class="offset2 span8" id="registration-codes">
     <h1>Registration Codes</h1>
 
     <p>Showing <%= @record_count %> records</p>
@@ -11,19 +11,32 @@
     </p>
 
     <p>
-    <h3>Tags</h3>
-      <ul>
-        <% @tag_list.each do |tag_desc| %>
-            <li><%= tag_desc.tag || 'none' %></li>
+        <h3>Filter</h3>
+        <%= form_tag('', :method => :get, :class => 'well') do |form| %>
+            <%= label_tag 'filter' do %>
+                <%= check_box_tag 'filter', 'unprinted', params[:filter]=='unprinted' %> Show unprinted codes only
+            <% end %>
+            <%= label_tag 'tag', 'Tag' %>
+            <%= select_tag 'tag', options_from_collection_for_select(@tag_list, 'tag', 'tag', params[:tag]), :prompt => 'All' %><br/>
+            <button type="submit" class="btn">Filter</button>
         <% end %>
-      </ul>
     </p>
-    <%= form_tag({:action => 'print', :format => :pdf}, :method => :post) do |form| %>
-        <%= hidden_field_tag 'mark_as_printed', '1' %>
+
+    <div id="hover-actions" class="well form-inline">
+      <button class="btn" id="mark-printed">Mark as printed</button>
+      <button class="btn" id="mark-unprinted">Mark as not printed</button>
+      <button class="btn" id="mark-tag">Tag</button>
+    </div>
+
+
+    <%= form_tag({:format => :pdf}, :method => :get) do |form| %>
+
+        <%= hidden_field_tag 'filter', params[:filter] %>
+        <%= hidden_field_tag 'tag', params[:tag] %>
+
         <table class="table table-condensed table-bordered" id="registration-codes-table">
           <thead>
             <tr>
-              <th>Print</th>
               <th>Code</th>
               <th>Tag</th>
               <th>User type</th>
@@ -38,14 +51,11 @@
                  row_classes.append 'printed' if code.printed?
                  row_classes.append 'used' if code.used?
               %>
-                <%= content_tag 'tr', :class => row_classes do %>
-                  <td>
-                    <input type="checkbox" name="codes[]" value="<%= code.id %>" />
-                  </td>
+                <%= content_tag 'tr', :class => row_classes, 'data-recid' => code.id do %>
                   <td><%= code.code %></td>
                   <td><%= code.tag %></td>
                   <td><%= code.role.to_s.capitalize %></td>
-                  <td><%= code.created_at %></td>
+                  <td><abbr class="timeago" title="<%= code.created_at.getutc.iso8601 %>"><%= code.created_at %></abbr></td>
                   <td>
                     <%= "Used" if code.used? %>
                     <%= "Available" if !code.used? %>

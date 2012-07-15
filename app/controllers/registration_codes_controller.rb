@@ -1,5 +1,7 @@
 class RegistrationCodesController < ApplicationController
   def index
+    prawnto :filename => 'Registration_Codes.pdf'
+
     case
     when params[:filter] == 'unprinted'
       @codes = RegistrationCode.unprinted
@@ -7,7 +9,7 @@ class RegistrationCodesController < ApplicationController
       @codes = RegistrationCode
     end
 
-    if params[:tag].is_a?(String)
+    if params[:tag].is_a?(String) and params[:tag] != ''
       @codes = @codes.find_all_by_tag(params[:tag])
     else
       @codes = @codes.all
@@ -15,12 +17,20 @@ class RegistrationCodesController < ApplicationController
 
     @tag_list = RegistrationCode.group("tag")
 
+    # Count the records
     @record_count = @codes.count
-
     @roles_count = Hash.new
     @codes.each do |code|
       @roles_count[code.role.to_s] ||= 0
       @roles_count[code.role.to_s] += 1
+    end
+
+    # Mark the printed code as having been printed?
+    if params[:format] == "pdf"
+      @codes.each do |code|
+        code.printed = true
+        code.save
+      end
     end
   end
 
@@ -41,21 +51,26 @@ class RegistrationCodesController < ApplicationController
     redirect_to '/registration_codes'
   end
 
-  def print
-    prawnto :filename => 'Registration_Codes.pdf'
+  def mark
+    # Expects JSON, eg:
+    # {action: 'tag', tag: 'new tag name', codes: [1,2,3,4]}
+    @codes = RegistrationCode.find(params[:codes])
 
-    if params[:codes].is_a?(Array)
-      @codes = RegistrationCode.find(params[:codes])
-    else
-      @codes = RegistrationCode.find_unprinted
-    end
+    new_tag_name = params[:tag]
 
-    # Mark the printed code as having been printed?
-    if params[:mark_as_printed] == "1"
-      @codes.each do |code|
-        code.printed = true
-        code.save
+    @codes.each do |code|
+      case params[:mark]
+        when 'tag'
+          code.tag = new_tag_name
+        when 'printed'
+          code.printed = true
+        when 'unprinted'
+          code.printed = false
       end
+      code.save
     end
+
+    #redirect_to '/registration_codes'
+    render :nothing => true
   end
 end
