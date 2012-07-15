@@ -15,7 +15,7 @@ class RegistrationCodesController < ApplicationController
       @codes = @codes.all
     end
 
-    @tag_list = RegistrationCode.group("tag")
+    @tag_list = RegistrationCode.select("tag").group("tag")
 
     # Count the records
     @record_count = @codes.count
