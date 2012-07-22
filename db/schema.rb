@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715042319) do
+ActiveRecord::Schema.define(:version => 20120722100347) do
 
   create_table "registration_codes", :force => true do |t|
     t.string   "code"
@@ -24,22 +24,52 @@ ActiveRecord::Schema.define(:version => 20120715042319) do
   end
 
   create_table "user_infos", :force => true do |t|
-    t.integer  "user_id_id"
-    t.integer  "gender"
+    t.integer  "user_id"
     t.integer  "english_first_language"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+    t.string   "gender"
   end
 
+  create_table "user_words", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "word_id"
+    t.boolean  "new"
+    t.float    "interval"
+    t.datetime "last_review"
+    t.datetime "next_due"
+    t.integer  "incorrect_count"
+    t.integer  "correct_count"
+    t.float    "easiness_factor"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "user_words", ["user_id"], :name => "index_user_words_on_user_id"
+  add_index "user_words", ["word_id"], :name => "index_user_words_on_word_id"
+
   create_table "users", :force => true do |t|
-    t.string   "user_code"
-    t.string   "password_hash"
-    t.string   "password_salt"
-    t.string   "password_reset"
+    t.string   "registration_code"
     t.integer  "user_type"
     t.datetime "last_login"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "password_digest"
+    t.string   "email"
+  end
+
+  create_table "words", :force => true do |t|
+    t.string   "expression"
+    t.string   "reading"
+    t.string   "meaning"
+    t.float    "average_easiness_factor"
+    t.integer  "reviewed_count"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "type1"
+    t.string   "type2"
+    t.boolean  "honorific"
+    t.integer  "order"
   end
 
 end

@@ -1,12 +1,18 @@
 Membit::Application.routes.draw do
-  get "log_in" => "session#create"
-  get "log_out" => "session#destroy"
-  get "register" => "account#new"
+  get "sessions/new"
+
+  get "sessions/create"
+
+  get "sessions/destroy"
+
+  match "log_in" => "sessions#create", :as => "log_in"
+  match "log_out" => "sessions#destroy", :as => "log_out"
+  get "register" => "account#new", :as => "sign_up"
 
   get "account/withdraw" => "account#withdraw"
 
   resources :account
-  resources :session
+  resources :sessions
 
   match "registration_codes" => 'registration_codes#mark', :via => :put
   resources :registration_codes

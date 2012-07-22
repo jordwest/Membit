@@ -1,34 +1,12 @@
 <div class="row" xmlns="http://www.w3.org/1999/html">
-  <div class="offset2 span8">
-    <h1>Register</h1>
-
-    <p>Thank you for participating in this project. I hope you find this software valuable in memorising vocabulary.
-    If you would like to read more about <em>Spaced Repetition</em>, see this
-      <a href="http://en.wikipedia.org/wiki/Spaced_repetition">Wikipedia article</a>.</p>
-
-    <p>To download the Participant Information Sheet with information about the project and contact details,
-    click the 'Help' button on the toolbar at the top of the page at any time.</p>
-
-    <p>Participation in this project is completely voluntary and you may withdraw at any time. To withdraw, click
-    the Account button on the toolbar at the top of page, then choose 'Withdraw Participation'.</p>
-
-    <p>To create an account and start revising vocabulary, please fill out the following information.</p>
-  </div>
-</div>
-<div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="offset3 span6">
     <div class="registration-form">
-      <%= twitter_bootstrap_form_for @user, :url => {:action => 'create'} do |f| %>
-          <%= f.inputs 'Registration Form' do %>
-            <%= f.text_field :user_code, 'Registration Code', :add_on => :prepend do %>
+      <%= twitter_bootstrap_form_for @user, :url => {:action => 'new'}, :method => :get do |f| %>
+          <%= f.inputs 'Registration' do %>
+            <%= f.text_field :registration_code, 'Registration Code', :add_on => :prepend do %>
                     <span class="add-on"><i class="icon-user"></i></span><% end %>
+              <span class="help-block">Please enter the 10-digit registration code on the card you received</span>
                 <hr/>
-              <%= f.password_field :password, 'Password', :add_on => :prepend do %>
-                  <span class="add-on"><i class="icon-lock"></i></span><% end %>
-              <%= f.password_field :password_confirm, 'Confirm Password', :add_on => :prepend do %>
-                  <span class="add-on"><i class="icon-lock"></i></span><% end %>
-
-              <hr/>
 
               <%= f.actions do %>
                   <%= f.submit "Register" %>

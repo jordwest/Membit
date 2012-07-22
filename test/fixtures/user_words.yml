@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 18
+  word_id: 1
+  new: false
+  interval: 1.5
+  last_review: 2012-07-22 16:25:55
+  next_due: 2012-07-22 16:25:55
+  incorrect_count: 1
+  correct_count: 1
+  easiness_factor: 1.5
+
+two:
+  user_id: 22
+  word_id: 1
+  new: false
+  interval: 1.5
+  last_review: 2012-07-22 16:25:55
+  next_due: 2012-07-22 16:25:55
+  incorrect_count: 1
+  correct_count: 1
+  easiness_factor: 1.5

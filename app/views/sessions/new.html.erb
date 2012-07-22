@@ -1,0 +1,36 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="offset3 span5">
+
+    <h1>Register</h1>
+    <%= form_tag '/register', :method => :get , :class => 'well' do %>
+
+        <%= label_tag 'Registration Code' %>
+        <%= text_field_tag 'user[registration_code]' %>
+
+        <br/>
+
+        <%= submit_tag 'Register', :class => 'btn btn-primary' %>
+    <% end %>
+
+  </div>
+</div>
+
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="offset3 span5">
+
+        <h1>Log In</h1>
+        <%= form_tag '/log_in', :class => 'well' do %>
+
+            <%= label_tag :email %>
+            <%= email_field_tag :email, params[:email] %>
+
+            <%= label_tag :password %>
+            <%= password_field_tag :password %>
+
+            <br/>
+
+            <%= submit_tag 'Log In', :class => 'btn btn-primary' %>
+        <% end %>
+
+    </div>
+</div>

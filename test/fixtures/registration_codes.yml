@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  code: MyString
-  user_type: 1
+  code: AAA
+  role: participant
   used: false
 
 two:
-  code: MyString
-  user_type: 1
-  used: false
+  code: BBB
+  role: participant
+  used: true
+
+three:
+  code: XXX
+  role: participant
+  used: true

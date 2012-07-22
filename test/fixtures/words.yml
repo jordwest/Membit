@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  expression: これは何ですか
+  reading: これは 何[なん]ですか
+  meaning: What is this?
+  average_easiness_factor: 1.5
+  reviewed_count: 1

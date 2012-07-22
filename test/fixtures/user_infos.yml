@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user_id: 
-  gender: 1
+  gender: male
   english_first_language: 1
 
 two:
-  user_id: 
-  gender: 1
-  english_first_language: 1
+  gender: female
+  english_first_language: 0

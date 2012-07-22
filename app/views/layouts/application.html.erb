@@ -50,9 +50,15 @@
                 <ul class="dropdown-menu">
                   <li>
                     <%= link_to "/account/logout" do %>
+                        <i class='icon-lock'></i> Change Password
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to "/account/log_off" do %>
                         <i class='icon-off'></i> Log out
                       <% end %>
                   </li>
+                  <li><hr/></li>
                   <li>
                     <%= link_to "/account/withdraw" do %>
                         <i class='icon-trash'></i> Withdraw Participation...

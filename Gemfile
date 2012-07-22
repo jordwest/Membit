@@ -21,6 +21,8 @@ gem 'rails', '3.2.6'
 
 group :development, :test do
 	gem 'sqlite3'
+  gem 'minitest'
+  gem 'minitest-reporters'
 end
 
 group :production do
@@ -47,7 +49,8 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+#gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

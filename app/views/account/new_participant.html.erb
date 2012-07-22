@@ -1,0 +1,39 @@
+<%= render :partial => 'register_info' %>
+
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="offset3 span6">
+    <div class="registration-form">
+      <%= twitter_bootstrap_form_for @user, :url => {:action => 'create'} do |f| %>
+            <%= f.inputs 'Participant Registration' do %>
+                <%= f.text_field :registration_code, 'Registration Code', :add_on => :prepend do %>
+                        <span class="add-on"><i class="icon-tag"></i></span><% end %>
+                    <hr/>
+                  <%= f.email_field :email, 'Email Address', :add_on => :prepend do %>
+                      <span class="add-on"><i class="icon-envelope"></i></span><% end %>
+                  <%= f.password_field :password, 'Password', :add_on => :prepend do %>
+                      <span class="add-on"><i class="icon-lock"></i></span><% end %>
+                  <%= f.password_field :password_confirmation, 'Confirm Password', :add_on => :prepend do %>
+                      <span class="add-on"><i class="icon-lock"></i></span><% end %>
+
+                  <hr/>
+              <% end %>
+
+              <%= f.fields_for :user_info do |i| %>
+                  <%= i.toggles 'Gender' do %>
+                    <%= i.radio_button(:gender, 'Male', "male") %>
+                    <%= i.radio_button(:gender, 'Female', "female") %>
+                  <% end %>
+
+              <%= i.toggles 'Is English your first language?' do %>
+                  <%= i.radio_button(:english_first_language, 'Yes', 1) %>
+                  <%= i.radio_button(:english_first_language, 'No', 0) %>
+              <% end %>
+            <% end %>
+
+          <%= f.actions do %>
+                  <%= f.submit "Register" %>
+              <% end %>
+      <% end %>
+    </div>
+  </div>
+</div><!--/row-->
