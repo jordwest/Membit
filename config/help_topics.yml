@@ -23,7 +23,7 @@
                <br/><br/> If
               you wrote your email address on the consent form, I will also send you a copy
               of the research abstract when it is complete.
-    - question: Who are you? Why are you doing this?
+    - question: Why are you doing this?
       answer: I'm an undergraduate engineering/arts student doing this project as my final year
               honours thesis. I studied Japanese for two years and loved it. I used
               <%= link_to "Anki", "http://ankisrs.net" %> almost religiously, and am constantly
