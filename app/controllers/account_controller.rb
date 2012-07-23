@@ -13,7 +13,7 @@ class AccountController < ApplicationController
     registration_code = RegistrationCode.find_by_code(params[:user][:registration_code])
 
     if @code_valid then
-      if registration_code.role.participant? and !User.registrations_open?
+      if @registration_code.role.participant? && !User.registrations_open?
         redirect_to "/register", :alert => "Sorry, registration is not yet open. Check back from Week 2 of semester."
       else
         render "new_"+@code_valid
