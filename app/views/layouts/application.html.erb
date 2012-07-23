@@ -67,12 +67,16 @@
                             <i class='icon-lock'></i> Change Password
                         <% end %>
                       </li>
-                      <li>
-                        <%= link_to "/account/withdraw" do %>
-                            <i class='icon-trash'></i> Withdraw Participation...
-                        <% end %>
+                      <% if can? :withdraw, User %>
+                          <li>
+                            <%= link_to "/account/withdraw" do %>
+                                <i class='icon-trash'></i> Withdraw Participation...
+                            <% end %>
+                          </li>
+                          <li>
+                      <% end %>
+                      <hr/>
                       </li>
-                      <li><hr/></li>
                       <li>
                         <%= link_to "/log_out" do %>
                             <i class='icon-off'></i> Log out

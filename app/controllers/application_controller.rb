@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_signed_in?
-    !@current_user.nil?
+    !current_user.nil?
   end
 
   def current_user

@@ -41,11 +41,13 @@ class AccountController < ApplicationController
 
   # Withdraw
   def withdraw
+      authorize! :withdraw, User
       render 'withdraw'
   end
 
   # Do the actual withdrawal (destroy the account)
   def destroy
+    authorize! :withdraw, User
     case params['confirm'].to_i
       when 1
         # TODO: Do the actual withdrawal process here
