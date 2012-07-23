@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :user_words, :dependent => :destroy
 
+  has_many :user_logins, :dependent => :destroy
+
+  has_many :reviews
+
   attr_accessible :email, :registration_code,
                   :password, :password_confirmation,
                   :user_info_attributes
@@ -67,5 +71,28 @@ class User < ActiveRecord::Base
   def self.registrations_open?
     return Date.today > Date.new(2012, 07, 29)
     #false
+  end
+
+  # Registers a user_login entry
+  def register_login(mobile)
+    self.user_logins.create(
+                  {
+                      :time_since_last_view => (self.last_pageview.nil? ?
+                          0 : ((Time.now - self.last_pageview)/86400)),
+                      :cards_due => self.user_words.due.count,
+                      :new_cards => self.user_words.not_studied.count,
+                      :mobile => mobile
+                  })
+  end
+
+  # Registers a pageview for the user
+  def pageview(mobile)
+    # If more than 15 mins since last pageview, count as a log in
+    if self.last_pageview.nil? || (Time.now - self.last_pageview) > 900
+      self.register_login(mobile)
+    end
+
+    self.last_pageview = Time.now
+    self.save
   end
 end

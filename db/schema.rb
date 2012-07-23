@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120722101906) do
+ActiveRecord::Schema.define(:version => 20120723133611) do
 
   create_table "registration_codes", :force => true do |t|
     t.string   "code"
@@ -23,6 +23,27 @@ ActiveRecord::Schema.define(:version => 20120722101906) do
     t.string   "tag"
   end
 
+  create_table "reviews", :force => true do |t|
+    t.integer  "user_word_id"
+    t.integer  "word_id"
+    t.integer  "user_id"
+    t.boolean  "was_new"
+    t.integer  "previous_interval"
+    t.datetime "was_due"
+    t.float    "overdue_time"
+    t.integer  "previous_incorrect_count"
+    t.integer  "previous_correct_count"
+    t.float    "previous_easiness_factor"
+    t.integer  "user_rated_answer"
+    t.float    "time_to_answer"
+    t.boolean  "correct"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "user_role"
+  end
+
+  add_index "reviews", ["user_word_id"], :name => "index_reviews_on_user_word_id"
+
   create_table "user_infos", :force => true do |t|
     t.integer  "user_id"
     t.integer  "english_first_language"
@@ -30,6 +51,18 @@ ActiveRecord::Schema.define(:version => 20120722101906) do
     t.datetime "updated_at",             :null => false
     t.string   "gender"
   end
+
+  create_table "user_logins", :force => true do |t|
+    t.integer  "user_id"
+    t.float    "time_since_last_view"
+    t.integer  "cards_due"
+    t.integer  "new_cards"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.boolean  "mobile"
+  end
+
+  add_index "user_logins", ["user_id"], :name => "index_user_logins_on_user_id"
 
   create_table "user_words", :force => true do |t|
     t.integer  "user_id"
@@ -56,6 +89,8 @@ ActiveRecord::Schema.define(:version => 20120722101906) do
     t.string   "password_digest"
     t.string   "email"
     t.string   "role"
+    t.datetime "last_pageview"
+    t.string   "remote_debug_code"
   end
 
   create_table "words", :force => true do |t|

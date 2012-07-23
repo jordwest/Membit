@@ -1,5 +1,8 @@
 Membit::Application.routes.draw do
+
   match "dashboard" => "dashboard#index"
+
+  match "help" => "help#index"
 
   match "log_in" => "sessions#new", :as => "log_in", :via => :get
   match "log_in" => "sessions#create", :as => "log_in", :via => :post

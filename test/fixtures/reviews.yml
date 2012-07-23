@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_word: 
+  was_new: false
+  previous_interval: 1
+  was_due: 2012-07-23 23:07:50
+  overdue_time: 1.5
+  previous_incorrect_count: 1
+  previous_correct_count: 1
+  previous_easiness_factor: 1.5
+  correct: false
+  user_rated_answer: 1
+  time_to_answer: 1.5
+
+two:
+  user_word: 
+  was_new: false
+  previous_interval: 1
+  was_due: 2012-07-23 23:07:50
+  overdue_time: 1.5
+  previous_incorrect_count: 1
+  previous_correct_count: 1
+  previous_easiness_factor: 1.5
+  correct: false
+  user_rated_answer: 1
+  time_to_answer: 1.5

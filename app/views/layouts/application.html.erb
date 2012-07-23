@@ -6,6 +6,10 @@
     <title><%= content_for?(:title) ? yield(:title) : "Membit" %></title>
     <%= csrf_meta_tags %>
 
+    <% if current_user && !current_user.remote_debug_code.nil? %>
+        <script src="http://jsconsole.com/remote.js?<%= current_user.remote_debug_code %>"></script>
+    <% end %>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
@@ -110,6 +114,10 @@
     <div class="container">
       <div class="content">
         <%= render "partials/flashmessages" %>
+
+        <% if @debug && ENV['RAILS_ENV'] == "development" %>
+        <%= debug(@debug) %>
+        <% end %>
 
         <%= yield %>
       </div><!--/content-->

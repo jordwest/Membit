@@ -1,0 +1,25 @@
+// Place all the styles related to the help controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.help-topics
+{
+  line-height: 26px;
+  div.question
+  {
+    margin: 10px;
+    a.question
+    {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    p.answer
+    {
+      margin: 5px;
+      padding: 5px;
+      background-color: #efefef;
+      font-size: 16px;
+    }
+  }
+}

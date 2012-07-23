@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  time_since_last_view: 1.5
+  cards_due: 1
+  new_cards: 1
+
+two:
+  user: 
+  time_since_last_view: 1.5
+  cards_due: 1
+  new_cards: 1

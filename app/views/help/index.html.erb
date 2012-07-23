@@ -1,0 +1,16 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="offset2 span8">
+    <h1>Help and Information</h1>
+    <div class="help-topics">
+      <% @topics.each do |topic| %>
+          <h2><%= topic["title"] %></h2>
+          <% topic["questions"].each do |question| %>
+              <div class="question">
+                <a href="javascript:;" class="question"><%= question["question"] %></a>
+                <p class="answer"><%= ERB.new(question["answer"]).result(binding).html_safe %></p>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+    </div>
+</div>

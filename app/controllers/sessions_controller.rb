@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       redirect_to root_url, :notice => "Logged in"
+      user.last_login = Time.now
+      user.save!
     else
       flash.now.alert = "Invalid email or password"
       render "new"

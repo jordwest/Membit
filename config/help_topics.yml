@@ -1,0 +1,93 @@
+- title: Research Information
+  questions:
+    - question: Where can I find the Participant Information Sheet?
+      answer: You can download it <%= link_to "here", "/" %><% #TODO: Upload info sheet! %>
+    - question: What exactly is this project trying to do?
+      answer: What I am hoping to do is to build a model of your knowledge of a
+              fixed set of vocabulary. With this model, I hope to be able to predict your
+              score in a future quiz. To do this, I'm recording a lot of data about how you
+              answer each revision and measuring this over time. Then I'm using
+              <%= link_to "machine learning", "http://en.wikipedia.org/wiki/Machine_learning" %>
+              techniques to process the data and predict how you will answer cards at a point in
+              the future.
+    - question: Why do you want to predict vocabulary scores?
+      answer: There are many reasons. Early intervention means teachers can see what their students
+              are struggling with and change their curriculum on the fly to compensate. Other reasons
+              include comparison of cohorts and classes, finding struggling students, advising students,
+              advising teachers. There is a whole field collecting data on education for these reasons
+              called <%= link_to "Learning Analytics", "http://en.wikipedia.org/wiki/Learning_analytics" %>
+    - question: Why do you need my email address?
+      answer: Your email address is only collected as a username for logging in, and to send
+              you an email in case you forget your password. It will not be used for anything else,
+              and all email addresses will be erased upon completion of the study.
+               <br/><br/> If
+              you wrote your email address on the consent form, I will also send you a copy
+              of the research abstract when it is complete.
+    - question: Who are you? Why are you doing this?
+      answer: I'm an undergraduate engineering/arts student doing this project as my final year
+              honours thesis. I studied Japanese for two years and loved it. I used
+              <%= link_to "Anki", "http://ankisrs.net" %> almost religiously, and am constantly
+              surprised to find that few people know about it. I'm hoping that with your help
+              I can show how powerful spaced repetition can be, with some data to back it up.
+
+- title: Software
+  questions:
+    - question: How do I use it?
+      answer: After you've registered, log in with the email address and password you registered with.
+              Click the "Start Reviewing" button on the home page, then follow the instructions.
+              If you're having trouble, contact me at jordan.west@uqconnect.edu.au.
+    - question: How do I register?
+      answer: You'll need the code written on the card you received when you handed in the
+              consent form. If you have handed in a consent form but did not receive a code,
+              or your code doesn't work, let me know at jordan.west@uqconnect.edu.au.
+    - question: The website looks weird/messed up on my computer.
+      answer: Please make sure you're using a recent version of Chrome, Firefox or Safari
+              and that Javascript is turned on.<br/>
+              If you use Internet Explorer, check that you're using version 9 or above.<br/>
+              If you're definitely using the latest versions of everything, let me know the issue you're
+              having at jordan.west@uqconnect.edu.au.
+    - question: The website is really slow :(
+      answer: There might be a lot of people using the system at once. Let me know at
+              jordan.west@uqconnect.edu.au and I'll conjure up some more computing power.
+    - question: Help! Something is broken.
+      answer: Please contact me at jordan.west@uqconnect.edu.au and I'll try to sort it out,
+              or use the anonymous feedback
+              form. Note that I can't reply to anonymous feedback, however answers will be posted here.
+    - question: Is there a mobile version that I can use from my smartphone?
+      answer: Yes! As long as you have an internet connection. Just open the website in
+              your smartphone browser and everything will work exactly the same.
+    - question: My registration code isn't working
+      answer: Please contact me at jordan.west@uqconnect.edu.au
+    - question: Can I add vocabulary to the software?
+      answer: No, only the preset list of words can be studied with this software. If you'd like to
+              create your own
+              vocabulary list with spaced repetition software, I highly recommend
+               <%= link_to "Anki", "http://ankisrs.net" %> - it's free and functions very similarly.
+    - question: Can I keep using the software after the semester is over?
+      answer: The software will not be available after the exam period of this semester. If you'd
+              like to create your own
+              vocabulary list with spaced repetition software, I highly recommend
+              <%= link_to "Anki", "http://ankisrs.net" %> - it's free and functions very similarly.
+
+- title: Spaced Repetition
+  questions:
+    - question: What is Spaced Repetition?
+      answer: Spaced Repetition is a relatively new method for optimising learning. Instead of studying
+              the same pieces of knowledge over and over, spaced repetition techniques involve feedback
+              about whether you correctly remembered a piece of knowledge correctly or not, and scheduling
+              a revision accordingly. Spaced repetition can be used for memorising almost anything,
+              but is best suited to independent pieces of information such as foreign vocabulary.
+              <%= link_to "Wikipedia", "http://en.wikipedia.org/wiki/Spaced_repetition" %>
+              has a detailed article on Spaced Repetition.
+    - question: What Spaced Repetition algorithm are you using?
+      answer: A slightly modified version of the
+              <%= link_to "SuperMemo SM2 algorithm", "http://www.supermemo.com/english/ol/sm2.htm" %>.
+
+
+- title: Technical
+  questions:
+    - question: What tools were used to build this software?
+      answer: The software is written using <%= link_to "Ruby on Rails", "http://rubyonrails.org/" %>
+              and makes use of <%= link_to "Twitter Bootstrap", "http://twitter.github.com/bootstrap/" %> for a
+              lot of the UI. The mobile version is a by-product of Twitter Bootstrap's responsive
+              layout.
