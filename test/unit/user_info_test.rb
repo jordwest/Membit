@@ -24,7 +24,9 @@ class UserInfoTest < ActiveSupport::TestCase
 
   test "Valid User Info record" do
     ui = UserInfo.new({:gender => :male, :english_first_language => 1})
-    ui.user = User.find(18)
-    assert(ui.valid?)
+    user = User.first
+    assert user.valid?, "User not valid, cannot test"
+    ui.user = user
+    assert ui.valid?, "User Info not valid when should be"
   end
 end

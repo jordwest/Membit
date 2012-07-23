@@ -1,16 +1,22 @@
+<% if User.registrations_open? %>
+
 <div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="offset3 span5">
 
-    <h1>Register</h1>
-    <%= form_tag '/register', :method => :get , :class => 'well' do %>
 
-        <%= label_tag 'Registration Code' %>
-        <%= text_field_tag 'user[registration_code]' %>
+        <h1>Register</h1>
+        <%= form_tag '/register', :method => :get , :class => 'well' do %>
 
-        <br/>
+            <%= label_tag 'Registration Code' %>
+            <%= text_field_tag 'user[registration_code]' %>
 
-        <%= submit_tag 'Register', :class => 'btn btn-primary' %>
-    <% end %>
+            <br/>
+
+            <%= submit_tag 'Register', :class => 'btn btn-primary' %>
+        <% end %>
+
+
+
 
   </div>
 </div>
@@ -34,3 +40,27 @@
 
     </div>
 </div>
+
+    <% else %>
+        <h1>Registration will be open from Monday of Week 2</h1>
+<hr/>
+
+    <div class="row" xmlns="http://www.w3.org/1999/html">
+      <div class="offset1 span8">
+
+            <h3>Check this page again from Monday 30th July.</h3>
+
+            <p>In the meantime, please make sure you have an up-to-date browser. <strong>Chrome, Firefox or Safari</strong>
+            work best. If you're using Internet Explorer make sure you have version 9 or above, or download
+              <a href="http://www.google.com/chrome">Google Chrome</a>.
+            </p>
+
+<hr/>
+            <p>
+            <h4>Want to more about the project?</h4>
+            Visit the <%= link_to "help page", "/help" %>
+            </p>
+
+          </div>
+        </div>
+    <% end %>

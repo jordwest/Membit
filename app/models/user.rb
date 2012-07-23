@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_uniqueness_of :registration_code
 
-  after_create :create_user_words
+  after_create :create_user_words, :use_registration_code
+
+  classy_enum_attr :role
 
   def registration_code_available
     if !registration_code.blank? and RegistrationCode.find_by_code_and_used(registration_code, false).nil?
@@ -42,5 +44,28 @@ class User < ActiveRecord::Base
       new_uw.word = word
       new_uw.save
     end
+  end
+
+  # Assign the user's role based on the registration code
+  def registration_code=(value)
+    reg_code = RegistrationCode.find_by_code(value)
+    if reg_code
+      self.role = reg_code.role.to_sym
+      #self.role = "admin"
+    end
+
+    write_attribute(:registration_code, value)
+  end
+
+  def use_registration_code
+    reg_code = RegistrationCode.find_by_code(self.registration_code)
+    reg_code.used = true
+    reg_code.save
+  end
+
+  # Check whether or not registrations are currently open
+  def self.registrations_open?
+    return Date.today > Date.new(2012, 07, 29)
+    #false
   end
 end

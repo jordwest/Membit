@@ -1,0 +1,54 @@
+<h1>A snapshot of your memory</h1>
+
+<div class="centered-buttons">
+  <%= link_to "Start Reviewing >>", '/review', :class => "btn btn-success btn-large", :id => "start-review-button" %>
+</div>
+
+
+<div class="visible-phone">
+  <ul id="dashboard-list">
+    <li>
+      Not yet studied
+      <em><%= @new_cards %></em>
+    </li>
+    <li>
+      Short-term memory
+      <em><%= @short_term %></em>
+    </li>
+    <li>
+      Long-term memory
+      <em><%= @long_term %></em>
+    </li>
+    <li>
+      About to forget
+      <em><%= @reviews_due %></em>
+      <small>(reviews due)</small>
+    </li>
+  </ul>
+</div>
+
+<div id="dashboard-diagram" class="hidden-phone">
+    <div class="info-box new-cards">
+      Not yet studied
+      <em><%= @new_cards %></em>
+    </div>
+
+  <div class="info-box short-term">
+    Short-term memory
+    <em><%= @short_term %></em>
+  </div>
+
+  <div class="info-box long-term">
+    Long-term memory
+    <em><%= @long_term %></em>
+  </div>
+
+  <div class="info-box reviews-due">
+    About to forget
+    <em><%= @reviews_due %></em>
+    <small>(reviews due)</small>
+  </div>
+</div>
+<div class="centered-buttons">
+    <%= link_to "Start Reviewing >>", '/review', :class => "btn btn-success btn-large", :id => "start-review-button" %>
+</div>

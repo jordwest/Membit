@@ -1,18 +1,18 @@
 <div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="offset3 span6">
-    <div class="registration-form">
-      <%= twitter_bootstrap_form_for @user, :url => {:action => 'new'}, :method => :get do |f| %>
-          <%= f.inputs 'Registration' do %>
-            <%= f.text_field :registration_code, 'Registration Code', :add_on => :prepend do %>
-                    <span class="add-on"><i class="icon-user"></i></span><% end %>
-              <span class="help-block">Please enter the 10-digit registration code on the card you received</span>
-                <hr/>
+        <div class="registration-form">
+          <%= twitter_bootstrap_form_for @user, :url => {:action => 'new'}, :method => :get do |f| %>
+              <%= f.inputs 'Registration' do %>
+                <%= f.text_field :registration_code, 'Registration Code', :add_on => :prepend do %>
+                        <span class="add-on"><i class="icon-user"></i></span><% end %>
+                  <span class="help-block">Please enter the 10-digit registration code on the card you received</span>
+                    <hr/>
 
-              <%= f.actions do %>
-                  <%= f.submit "Register" %>
+                  <%= f.actions do %>
+                      <%= f.submit "Register" %>
+                  <% end %>
               <% end %>
           <% end %>
-      <% end %>
-    </div>
+        </div>
   </div>
 </div><!--/row-->

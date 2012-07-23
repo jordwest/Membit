@@ -10,5 +10,12 @@
  *
  *= require_self
  *= require jquery.ui.all
- *= require_tree .
+ *= require tables
+ *= require bootstrap_and_overrides
+ *= require account
+ *= require home
+ *= require registration_code
+ *= require sessions
+ *= require teacher/dashboard
+
  */

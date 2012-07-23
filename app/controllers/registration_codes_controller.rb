@@ -1,5 +1,7 @@
 class RegistrationCodesController < ApplicationController
   def index
+    authorize! :manage, RegistrationCode
+
     prawnto :filename => 'Registration_Codes.pdf'
 
     case
@@ -35,10 +37,13 @@ class RegistrationCodesController < ApplicationController
   end
 
   def new
+    authorize! :manage, RegistrationCode
     @roles = Role.all
   end
 
   def create
+    authorize! :manage, RegistrationCode
+
     role_to_generate = params[:role]
     number_to_generate = params[:count].to_i
 
@@ -52,6 +57,8 @@ class RegistrationCodesController < ApplicationController
   end
 
   def mark
+    authorize! :manage, RegistrationCode
+
     # Expects JSON, eg:
     # {action: 'tag', tag: 'new tag name', codes: [1,2,3,4]}
     @codes = RegistrationCode.find(params[:codes])

@@ -5,9 +5,11 @@ normal:
   email: test@testmctest.com
   password_digest: ergergergreg
   registration_code: BBB
+  role: participant
 
 another:
   id: 22
   email: hello@test.com
   password_digest: egergrg
   registration_code: XXX
+  role: admin

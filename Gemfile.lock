@@ -172,6 +172,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   json
+  less-rails
   minitest
   minitest-reporters
   pg

@@ -41,31 +41,62 @@
                     <i class="icon-question-sign"></i> Help
                 <% end %>
               </li>
-              <li class="dropdown">
-                <a href="#"
-                   class="dropdown-toggle"
-                   data-toggle="dropdown">
-                  <i class='icon-user'></i> Account
-                   <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <%= link_to "/account/logout" do %>
-                        <i class='icon-lock'></i> Change Password
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to "/account/log_off" do %>
-                        <i class='icon-off'></i> Log out
+              <% if !user_signed_in?%>
+                  <% if User.registrations_open? %>
+                    <li>
+                      <%= link_to "/register" do %>
+                          <i class="icon-user"></i> Register
                       <% end %>
+                    </li>
+                  <% end %>
+                      <%= form_tag '/log_in', :class => "navbar-form pull-right" do |f| %>
+                          <%= email_field_tag :email, '', :class => 'span2', :placeholder => 'Email' %>
+                          <%= password_field_tag :password, '', :class => 'span2', :placeholder => 'Password' %>
+                          <%= submit_tag 'Log In' %>
+                      <% end %>
+              <% else %>
+                  <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                      <i class='icon-user'></i> Account
+                       <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to "/account/logout" do %>
+                            <i class='icon-lock'></i> Change Password
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to "/account/withdraw" do %>
+                            <i class='icon-trash'></i> Withdraw Participation...
+                        <% end %>
+                      </li>
+                      <li><hr/></li>
+                      <li>
+                        <%= link_to "/log_out" do %>
+                            <i class='icon-off'></i> Log out
+                        <% end %>
+                      </li>
+                    </ul>
                   </li>
-                  <li><hr/></li>
-                  <li>
-                    <%= link_to "/account/withdraw" do %>
-                        <i class='icon-trash'></i> Withdraw Participation...
-                    <% end %>
+              <% end %>
+              <% if can? :manage, :all %>
+                  <li class="dropdown">
+                    <a href="#"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                      <i class='icon-lock'></i> Administration
+                      <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to "/registration_codes" do %>
+                            <i class='icon-lock'></i> Manage Registration Codes
+                        <% end %>
+                      </li>
+                    </ul>
                   </li>
-                </ul>
-              </li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -8,13 +8,7 @@
                 <%= f.text_field :registration_code, 'Registration Code', :add_on => :prepend do %>
                         <span class="add-on"><i class="icon-tag"></i></span><% end %>
                     <hr/>
-                  <%= f.email_field :email, 'Email Address', :add_on => :prepend do %>
-                      <span class="add-on"><i class="icon-envelope"></i></span><% end %>
-                  <%= f.password_field :password, 'Password', :add_on => :prepend do %>
-                      <span class="add-on"><i class="icon-lock"></i></span><% end %>
-                  <%= f.password_field :password_confirmation, 'Confirm Password', :add_on => :prepend do %>
-                      <span class="add-on"><i class="icon-lock"></i></span><% end %>
-
+                      <%= render :partial => 'email_and_password', :locals => {:f => f} %>
                   <hr/>
               <% end %>
 

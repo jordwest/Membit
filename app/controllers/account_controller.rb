@@ -13,9 +13,13 @@ class AccountController < ApplicationController
     registration_code = RegistrationCode.find_by_code(params[:user][:registration_code])
 
     if @code_valid then
-      render "new_"+@code_valid
+      if registration_code.role.participant? and !User.registrations_open?
+        redirect_to "/register", :alert => "Sorry, registration is not yet open. Check back from Week 2 of semester."
+      else
+        render "new_"+@code_valid
+      end
     else
-      render "new"
+        render "new"
     end
   end
 
@@ -24,7 +28,8 @@ class AccountController < ApplicationController
     if @code_valid
       @user.update_attributes(params[:user])
       if @user.save
-        redirect_to root_url, :notice => 'Your account was created successfully.'
+        User.authenticate(@user.email, @user.password)
+        redirect_to '/log_in', :notice => 'Your account was created successfully. You can now log in using the details you registered with.'
       else
         flash.now.alert = "Please check that you have filled in the form completely"
         render "new_"+@code_valid

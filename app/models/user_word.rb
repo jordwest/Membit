@@ -5,6 +5,13 @@ class UserWord < ActiveRecord::Base
 
   after_initialize :defaults
 
+  scope :due, lambda {
+    where("next_due < ?", Time.now.end_of_day)
+  }
+
+  scope :short_term, where("interval between ? and ?", 1, 14).where(:new => false)
+  scope :long_term, where("interval > ?", 14).where(:new => false)
+
   def defaults
     self.correct_count ||= 0
     self.easiness_factor ||= 2.5

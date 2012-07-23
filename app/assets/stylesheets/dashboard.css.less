@@ -1,0 +1,85 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#dashboard-diagram
+{
+  position: relative;
+  background-image: image-url("dashboard_diagram.jpg");
+  width: 723px;
+  height: 452px;
+  margin: 40px auto;
+  border: 15px solid #eee;
+  font-weight: bold;
+
+  .info-box {
+    position: absolute;
+    background-color: #88f;
+    #gradient > .vertical(#99f, #77f);
+    padding: 10px;
+    color: #fff;
+    width: 140px;
+    text-align: center;
+      .border-radius(10px);
+
+    em {
+      display: block;
+      font-weight: bold;
+      font-size: 28px;
+      text-align: center;
+    }
+  }
+
+  .new-cards {
+    left: 40px;
+    top: 150px;
+  }
+
+  .short-term {
+    left: 180px;
+    top: 70px;
+  }
+
+  .long-term {
+    left: 520px;
+    top: 20px;
+  }
+
+  .reviews-due {
+    left: 470px;
+    top: 350px;
+  }
+}
+
+ul#dashboard-list
+{
+  margin: 20px;
+  padding: 5px;
+
+  li
+  {
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    background-color: #ccf;
+    #gradient > .vertical(#ddf, #bbf);
+    text-align: center;
+
+    .border-radius(5px);
+
+    em {
+        display: block;
+      font-size: 22px;
+    }
+  }
+}
+
+.centered-buttons
+{
+  text-align: center;
+
+  #start-review-button {
+    margin: 5px auto;
+    font-size: 20px;
+  }
+}

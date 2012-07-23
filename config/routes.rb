@@ -1,11 +1,8 @@
 Membit::Application.routes.draw do
-  get "sessions/new"
+  match "dashboard" => "dashboard#index"
 
-  get "sessions/create"
-
-  get "sessions/destroy"
-
-  match "log_in" => "sessions#create", :as => "log_in"
+  match "log_in" => "sessions#new", :as => "log_in", :via => :get
+  match "log_in" => "sessions#create", :as => "log_in", :via => :post
   match "log_out" => "sessions#destroy", :as => "log_out"
   get "register" => "account#new", :as => "sign_up"
 
