@@ -29,7 +29,7 @@ class AccountController < ApplicationController
       @user.update_attributes(params[:user])
       if @user.save
         User.authenticate(@user.email, @user.password)
-        redirect_to '/log_in', :notice => 'Your account was created successfully. You can now log in using the details you registered with.'
+        redirect_to '/log_in', :notice => 'Thanks for registering! You can now log in using the details you registered with and start reviewing vocabulary.'
       else
         flash.now.alert = "Please check that you have filled in the form completely"
         render "new_"+@code_valid
@@ -60,6 +60,9 @@ class AccountController < ApplicationController
   private
 
   def check_registration_code
+    # Convert registration code to uppercase TODO: really ugly... gotta be a better way
+    params[:user][:registration_code] = params[:user][:registration_code].upcase if !params[:user].nil? && !params[:user][:registration_code].nil?
+
     @user = User.new(params[:user])
     @registration_code = RegistrationCode.find_by_code(@user.registration_code)
 

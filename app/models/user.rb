@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :user_logins, :dependent => :destroy
 
-  has_many :reviews
+  has_many :reviews, :dependent => :destroy
 
   attr_accessible :email, :registration_code,
                   :password, :password_confirmation,
