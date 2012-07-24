@@ -1,7 +1,7 @@
 - title: Research Information
   questions:
     - question: Where can I find the Participant Information Sheet?
-      answer: You can download it <%= link_to "here", asset_path("participant_info_sheet.pdf") %><% #TODO: Upload info sheet! %>
+      answer: You can download it <%= link_to "here", "/assets/participant_info_sheet.pdf" %>
     - question: What exactly is this project trying to do?
       answer: What I am hoping to do is to build a model of your knowledge of a
               fixed set of vocabulary. With this model, I hope to be able to predict your
