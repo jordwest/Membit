@@ -41,19 +41,38 @@ class AccountController < ApplicationController
 
   # Withdraw
   def withdraw
-      authorize! :withdraw, User
+      authorize! :withdraw, :self
       render 'withdraw'
   end
 
   # Do the actual withdrawal (destroy the account)
   def destroy
-    authorize! :withdraw, User
+    authorize! :withdraw, :self
     case params['confirm'].to_i
       when 1
         # TODO: Do the actual withdrawal process here
         redirect_to '/'
       else
         render 'withdraw_confirm'
+    end
+  end
+
+  def change_password
+    authorize! :edit, :self
+
+    if !params[:original_password].nil?
+      if current_user.authenticate(params[:original_password])
+        current_user.password_digest = nil
+        current_user.password = params[:password]
+        current_user.password_confirmation = params[:password_confirmation]
+        if current_user.save
+          flash.now.notice = "Password successfully changed."
+        else
+          flash.now.alert = "Couldn't change password. Check that your new password is at least 6 characters and that the new passwords match."
+        end
+      else
+        flash.now.alert = "Couldn't change password. Check that your current password was entered correctly."
+      end
     end
   end
 

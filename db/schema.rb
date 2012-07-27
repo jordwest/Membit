@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724025428) do
+ActiveRecord::Schema.define(:version => 20120726062009) do
 
   create_table "registration_codes", :force => true do |t|
     t.string   "code"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20120724025428) do
     t.integer  "word_id"
     t.integer  "user_id"
     t.boolean  "was_new"
-    t.integer  "previous_interval"
     t.datetime "was_due"
     t.float    "overdue_time"
     t.integer  "previous_incorrect_count"
@@ -37,9 +36,13 @@ ActiveRecord::Schema.define(:version => 20120724025428) do
     t.integer  "user_rated_answer"
     t.float    "time_to_answer"
     t.boolean  "correct"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.string   "user_role"
+    t.integer  "previous_repetition_number"
+    t.float    "previous_interval"
+    t.float    "actual_interval"
+    t.boolean  "was_failed"
   end
 
   add_index "reviews", ["user_word_id"], :name => "index_reviews_on_user_word_id"
@@ -75,8 +78,10 @@ ActiveRecord::Schema.define(:version => 20120724025428) do
     t.integer  "incorrect_count"
     t.integer  "correct_count"
     t.float    "easiness_factor"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "repetition_number"
+    t.boolean  "failed"
   end
 
   add_index "user_words", ["user_id"], :name => "index_user_words_on_user_id"

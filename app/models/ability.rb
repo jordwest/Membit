@@ -4,9 +4,12 @@ class Ability
   def initialize(user)
     return if user.nil?
 
+    # All users
+    can :edit, :self
+
     if user.role.participant? || user.role.tester?
       can :create, UserWord
-      can :withdraw, User
+      can :withdraw, :self
       can :read, :dashboard
     elsif user.role.admin?
       can :read, :all

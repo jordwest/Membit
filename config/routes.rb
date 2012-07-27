@@ -1,19 +1,25 @@
 Membit::Application.routes.draw do
 
+  match "review" => "review#review"
+
   match "dashboard" => "dashboard#index"
 
   match "help" => "help#index"
 
+
+
+  # Account management
   match "log_in" => "sessions#new", :as => "log_in", :via => :get
   match "log_in" => "sessions#create", :as => "log_in", :via => :post
   match "log_out" => "sessions#destroy", :as => "log_out"
   get "register" => "account#new", :as => "sign_up"
-
   get "account/withdraw" => "account#withdraw"
+  match "account/change_password" => "account#change_password"
 
-  resources :account
-  resources :sessions
+  #resources :account
+  #resources :sessions
 
+  # Administration
   match "registration_codes" => 'registration_codes#mark', :via => :put
   resources :registration_codes
 

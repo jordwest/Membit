@@ -12,15 +12,18 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :registration_code,
                   :password, :password_confirmation,
-                  :user_info_attributes
+                  :user_info_attributes, :original_password
 
 
   validates_presence_of :email
   validates_presence_of :registration_code
   validate :registration_code_available, :on => :create
-  validates_presence_of :password, :on => :create
   validates_uniqueness_of :email
   validates_uniqueness_of :registration_code
+
+  validates :password, :presence => true,
+            :length => { :minimum => 6 },
+            :if => :password_digest_changed?
 
   after_create :create_user_words, :use_registration_code
 
@@ -93,6 +96,6 @@ class User < ActiveRecord::Base
     end
 
     self.last_pageview = Time.now
-    self.save
+    self.save!
   end
 end
