@@ -1,12 +1,9 @@
 Membit::Application.routes.draw do
 
   match "review" => "review#review"
-
   match "dashboard" => "dashboard#index"
-
+  match "dashboard/words" => "dashboard#words"
   match "help" => "help#index"
-
-
 
   # Account management
   match "log_in" => "sessions#new", :as => "log_in", :via => :get

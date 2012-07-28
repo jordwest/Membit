@@ -15,5 +15,6 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require underscore
+//= require backbone
 //= require_tree .
 

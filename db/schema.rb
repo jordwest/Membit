@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726062009) do
+ActiveRecord::Schema.define(:version => 20120728133725) do
 
   create_table "registration_codes", :force => true do |t|
     t.string   "code"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120726062009) do
     t.float    "previous_interval"
     t.float    "actual_interval"
     t.boolean  "was_failed"
+    t.integer  "previous_attempts"
   end
 
   add_index "reviews", ["user_word_id"], :name => "index_reviews_on_user_word_id"
@@ -71,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20120726062009) do
   create_table "user_words", :force => true do |t|
     t.integer  "user_id"
     t.integer  "word_id"
-    t.boolean  "new"
+    t.boolean  "new_card"
     t.float    "interval"
     t.datetime "last_review"
     t.datetime "next_due"
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20120726062009) do
     t.datetime "updated_at",        :null => false
     t.integer  "repetition_number"
     t.boolean  "failed"
+    t.integer  "attempts"
   end
 
   add_index "user_words", ["user_id"], :name => "index_user_words_on_user_id"

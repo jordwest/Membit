@@ -1,0 +1,33 @@
+<h1>Word List</h1>
+<h3><%= current_user.reviews.new_studied_today.count %> new words studied today</h3>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Next Due</th>
+      <th>Last Review</th>
+      <th>Interval</th>
+      <th>Easiness Factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_words.each do |uw| %>
+        <tr class='<%=
+            case
+                when uw.new_card?
+                    'new'
+                when uw.failed?
+                    'failed'
+                else
+                    'studied'
+            end
+            %>'>
+          <td><%= uw.word.expression %></td>
+          <td><abbr class='timeago' title='<%= uw.next_due %>'><%= uw.next_due %></abbr></td>
+          <td><abbr class='timeago' title='<%= uw.last_review %>'><%= uw.last_review %></abbr></td>
+          <td><%= uw.interval.round %> <%= uw.interval.round == 1 ? 'day' : 'days' %></td>
+          <td><%= uw.easiness_factor %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

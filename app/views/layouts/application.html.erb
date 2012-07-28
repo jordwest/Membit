@@ -85,6 +85,14 @@
                             <i class='icon-lock'></i> Change Password
                         <% end %>
                       </li>
+                      <% if can? :read, :dashboard %>
+                          <li>
+                            <%= link_to "/dashboard/words" do %>
+                                <i class='icon-list'></i> Word List
+                            <% end %>
+                          </li>
+                          <li>
+                      <% end %>
                       <% if can? :withdraw, User %>
                           <li>
                             <%= link_to "/account/withdraw" do %>

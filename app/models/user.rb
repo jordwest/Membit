@@ -46,10 +46,7 @@ class User < ActiveRecord::Base
 
   def create_user_words
     Word.all.each do |word|
-      new_uw = UserWord.new
-      new_uw.user = self
-      new_uw.word = word
-      new_uw.save
+      new_uw = UserWord.find_or_create_by_user_id_and_word_id(self.id, word.id)
     end
   end
 

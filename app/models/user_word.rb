@@ -1,14 +1,16 @@
 class UserWord < ActiveRecord::Base
   belongs_to :user
   belongs_to :word
-  #attr_accessible :correct_count, :easiness_factor, :incorrect_count, :interval, :last_review, :new, :next_due
+  #attr_accessible :correct_count, :easiness_factor, :incorrect_count, :interval, :last_review, :new_card, :next_due
 
   has_many :reviews
 
   after_initialize :defaults
 
   scope :due, lambda {
-    where("next_due < ?", Time.now.end_of_day).where(:failed => false).order("next_due ASC")
+    # Subtract 3 hours so that a day 'ends' at 3am
+    minus_3hrs = Time.now - 10800
+    where("next_due < ?", minus_3hrs.end_of_day+10800).where(:failed => false).order("next_due ASC")
   }
 
   scope :failed, lambda {
@@ -19,18 +21,19 @@ class UserWord < ActiveRecord::Base
     offset(1).limit(1)
   }
 
-  scope :not_studied, where(:new => true)
-  scope :short_term, where("interval between ? and ?", 1, 14).where(:new => false)
-  scope :long_term, where("interval > ?", 14).where(:new => false)
+  scope :not_studied, where(:new_card => true).order("id ASC")
+  scope :short_term, where("interval between ? and ?", 1, 14).where(:new_card => false)
+  scope :long_term, where("interval > ?", 14).where(:new_card => false)
 
   def defaults
     self.correct_count ||= 0
     self.easiness_factor ||= 2.5
     self.incorrect_count ||= 0
     self.interval ||= 0
-    self.new ||= 1
+    self.new_card = true if self.new_card.nil?
     self.repetition_number ||= 0
-    self.failed ||= false
+    self.failed ||= false if self.failed.nil?
+    self.attempts ||= 0
   end
 
   # Records a review for this user's word
@@ -43,7 +46,7 @@ class UserWord < ActiveRecord::Base
     else
       overdue_time = (Time.now - self.next_due) / 86400 # seconds -> days
     end
-    new_review.update_attributes({:was_new => self.new,
+    new_review.update_attributes({:was_new => self.new_card,
                                  :previous_interval => self.interval,
                                  :was_due => self.next_due,
                                  :overdue_time => overdue_time,
@@ -56,7 +59,8 @@ class UserWord < ActiveRecord::Base
                                  :correct => (answer > 2),
                                  :user_role => self.user.role.to_s,
                                  :actual_interval => self.interval + overdue_time,
-                                 :was_failed => self.failed})
+                                 :was_failed => self.failed,
+                                 :previous_attempts => self.attempts})
     new_review.save
 
     self.last_review = Time.now
@@ -79,12 +83,14 @@ class UserWord < ActiveRecord::Base
 
     self.easiness_factor = ef_new
 
-    self.new = false
+    self.new_card = false
+
+    self.attempts += 1
 
     self.repetition_number ||= 0
     if answer < 3
       self.failed = true
-      self.repetition_number = 1
+      self.repetition_number = 0
     else
       self.failed = false
       self.repetition_number += 1

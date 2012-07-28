@@ -68,6 +68,8 @@
               like to create your own
               vocabulary list with spaced repetition software, I highly recommend
               <%= link_to "Anki", "http://ankisrs.net" %> - it's free and functions very similarly.
+    - question: Why do some flashcards appear before they are due?
+      answer: All flashcards that are due today are shown - with the beginning of the day considered as 3am.
 
 - title: Spaced Repetition
   questions:
