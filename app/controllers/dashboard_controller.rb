@@ -11,6 +11,6 @@ class DashboardController < ApplicationController
 
   def words
     authorize! :read, :dashboard
-    @user_words = current_user.user_words.includes(:word)
+    @user_words = current_user.user_words.order("word_id ASC").includes(:word)
   end
 end
