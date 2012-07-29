@@ -6,7 +6,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "Membit" %></title>
     <%= csrf_meta_tags %>
 
-    <% if current_user && !current_user.remote_debug_code.nil? %>
+    <% if current_user && !current_user.remote_debug_code.blank? %>
         <script src="http://jsconsole.com/remote.js?<%= current_user.remote_debug_code %>"></script>
     <% end %>
 
@@ -22,19 +22,21 @@
     <link href="/assets/icon_072.png" rel="apple-touch-icon" sizes="72x72">
     <link href="/assets/icon_114.png" rel="apple-touch-icon" sizes="114x114">
     <link href="/assets/icon_144.png" rel="apple-touch-icon" sizes="144x144">
-    <script type="text/javascript">
+    <% if Rails.env.production? %>
+        <script type="text/javascript">
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-350968-15']);
-        _gaq.push(['_trackPageview']);
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-350968-15']);
+            _gaq.push(['_trackPageview']);
 
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
 
-    </script>
+        </script>
+    <% end %>
   </head>
   <body>
 
