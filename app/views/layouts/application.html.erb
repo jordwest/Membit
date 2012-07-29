@@ -100,7 +100,7 @@
                           </li>
                           <li>
                       <% end %>
-                      <% if can? :withdraw, User %>
+                      <% if can? :withdraw, :self %>
                           <li>
                             <%= link_to "/account/withdraw" do %>
                                 <i class='icon-trash'></i> Withdraw Participation...

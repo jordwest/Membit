@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  type: 
+  details: MyString
+  var1: 1
+  var2: 1
+
+two:
+  user: 
+  type: 
+  details: MyString
+  var1: 1
+  var2: 1

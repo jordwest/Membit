@@ -11,7 +11,9 @@ Membit::Application.routes.draw do
   match "log_out" => "sessions#destroy", :as => "log_out"
   get "register" => "account#new", :as => "sign_up"
   get "account/withdraw" => "account#withdraw"
+  delete "account/withdraw" => "account#destroy"
   match "account/change_password" => "account#change_password"
+  match "account/create" => "account#create"
 
   #resources :account
   #resources :sessions

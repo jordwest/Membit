@@ -7,3 +7,7 @@ jQuery ->
   $("div.question > a.question").on "click", ->
     $(this).parent().find("p.answer").slideToggle(200)
     console.log(this)
+
+  $("a.inline-help-toggle").on "click", ->
+    $("div.inline-help").slideToggle(200)
+    console.log(this)

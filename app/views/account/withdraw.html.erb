@@ -13,14 +13,15 @@
       Jordan West at <a href="mailto:jordan.west@uqconnect.edu.au">jordan.west@uqconnect.edu.au</a>.</p>
 
     <div class="withdrawal-buttons">
-      <form>
+      <%= form_tag nil, :method => :delete do %>
+        <%=  %>
         <div>
-          <a class="btn btn-large" href="#">Return to Home Page</a>
+          <a class="btn btn-large" href="/">Return to Home Page</a>
         </div>
         <div>
           <input type="submit" class="btn btn-danger btn-large" value="Withdraw Participation">
         </div>
-      </form>
+      <% end %>
     </div>
   </div>
 </div><!--/row-->

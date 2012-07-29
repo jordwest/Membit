@@ -1,12 +1,57 @@
+<h1>Review</h1>
 <div class="row">
-  <div class="span9">
-    <h1>Review</h1>
+  <div class="span8">
 
     <div class="well card-review" id="card-review">
     </div>
 
   </div>
   <div class="span4">
+    <div class="inline-help-container">
+      <a href="javascript:;" class="inline-help-toggle"><i class="icon-question-sign"></i> Show/Hide Help</a>
+
+      <div class="inline-help">
+          <div class="help-content" id="inline-help-card-front">
+            <h3>What do I do?</h3>
+            <p>Try to recall the reading and meaning of the word shown on the left.</p>
+            <p><strong>If you have never seen the word before</strong>, click "Show Answer" and then try to memorise the word. Choose "0" as your rating.</p>
+            <p><strong>If you know the word</strong>, try to recall the reading and meaning of the word, then click "Show Answer" and rate your answer.</p>
+          </div>
+
+          <div class="help-content" id="inline-help-card-back">
+            <h3>Which rating should I choose?</h3>
+            <p>Choosing the right rating for each card is important so that cards are scheduled correctly in the future.
+              </p>
+            <p>Rate your answer based on the following:</p>
+            <ul>
+              <li>
+                <button class="btn btn-danger" disabled>0</button> <strong>Complete blackout.</strong> You had no
+                idea what the answer was, or you've never seen this word before.
+              </li>
+              <li>
+                <button class="btn btn-danger" disabled>1</button> <strong>Incorrect, but slightly familiar.</strong> You remember seeing the
+                answer before, but couldn't recall it.
+              </li>
+              <li>
+                <button class="btn btn-danger" disabled>2</button> <strong>Incorrect, but seemed easy.</strong> You couldn't recall
+                the answer, but then it seemed so easy when you saw the answer
+              </li>
+              <li>
+                <button class="btn" disabled>3</button> <strong>Correct, but difficult.</strong> You correctly recalled the
+                answer, but it was difficult to recall.
+              </li>
+              <li>
+                <button class="btn" disabled>4</button> <strong>Correct, but hesitated.</strong> You correctly recalled the answer after
+                some hesitation.
+              </li>
+              <li>
+                <button class="btn btn-success" disabled>5</button> <strong>Correct and easy.</strong> You correctly recalled the answer
+                quickly and easily
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
   </div>
 </div><!--/row-->
 

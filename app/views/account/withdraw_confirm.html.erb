@@ -8,7 +8,7 @@
     <p>Are you sure you want to do this?</p>
 
     <div class="withdrawal-buttons">
-      <form>
+      <%= form_tag nil, :method => :delete do %>
           <div>
             <div>
               <%= hidden_field_tag 'confirm', "1" %>
@@ -17,9 +17,9 @@
           </div>
 
           <div>
-            <a class="btn btn-large" href="#">No, go back</a>
+            <a class="btn btn-large" href="/">No, go back</a>
           </div>
-      </form>
+      <% end %>
     </div>
   </div>
 </div><!--/row-->

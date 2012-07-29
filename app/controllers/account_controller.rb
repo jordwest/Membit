@@ -50,7 +50,17 @@ class AccountController < ApplicationController
     authorize! :withdraw, :self
     case params['confirm'].to_i
       when 1
-        # TODO: Do the actual withdrawal process here
+        user = current_user
+
+        # Record the withdrawal
+        AppLog.create({:user => user, :type => 'Withdrawal', :details => "User withdrew participation, all associated data deleted"})
+
+        # Destroy the session
+        session[:user_id] = nil
+
+        # Destroy the user
+        user.destroy
+
         redirect_to '/'
       else
         render 'withdraw_confirm'

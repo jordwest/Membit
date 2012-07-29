@@ -14,7 +14,8 @@ class Ability
     elsif user.role.admin?
       can :read, :all
       can :manage, :all
-      cannot :withdraw, User
+      can :withdraw, User
+      cannot :withdraw, :self
     elsif user.role.teacher?
       can :read, :statistics
     end
