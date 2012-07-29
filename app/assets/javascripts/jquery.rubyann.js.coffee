@@ -12,7 +12,7 @@ $.fn.extend {}=
   rubyann: () ->
 
     #regex = ///#{startChar}((\S+?),(\S+?))#{endChar}///g
-    regex = ///(^|\s)(\S+?)\[(\S+?)\]///g
+    regex = /(^|\s)(\S+?)\[(\S+?)\]/g
 
     @each ->
       html = $(@).html()
