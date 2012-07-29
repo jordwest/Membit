@@ -22,7 +22,7 @@
     <link href="/assets/icon_072.png" rel="apple-touch-icon" sizes="72x72">
     <link href="/assets/icon_114.png" rel="apple-touch-icon" sizes="114x114">
     <link href="/assets/icon_144.png" rel="apple-touch-icon" sizes="144x144">
-    <% if Rails.env.production? %>
+    <% if Rails.env.production? && !(user_signed_in? && current_user.role.admin?) %>
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
