@@ -32,6 +32,12 @@
 
 - title: Software
   questions:
+    - question: What does it do?
+      answer: Membit is basically flashcards with a twist. When you review a flashcard, you rate your
+              answer and the system uses this rating to reschedule the card for the future. This means
+              that you'll see lots of cards that you're almost about to forget, and not many cards that you already know
+              well. As time goes on and the more often you use the system the less reviews you'll have to
+              do, until all the cards have settled into your long-term memory.
     - question: How do I use it?
       answer: After you've registered, log in with the email address and password you registered with.
               Click the "Start Reviewing" button on the home page, then follow the instructions.
@@ -40,6 +46,10 @@
       answer: You'll need the code written on the card you received when you handed in the
               consent form. If you have handed in a consent form but did not receive a code,
               or your code doesn't work, let me know at jordan.west@uqconnect.edu.au.
+    - question: Can my friends use this software?
+      answer: Only students in JAPN1023 can participate in this study. If you are in JAPN1023, would like
+              to participate and didn't
+              receive a participant card, please contact me at jordan.west@uqconnect.edu.au
     - question: The website looks weird/messed up on my computer.
       answer: Please make sure you're using a recent version of Chrome, Firefox or Safari
               and that Javascript is turned on.<br/>
@@ -58,6 +68,11 @@
               your smartphone browser and everything will work exactly the same.
     - question: My registration code isn't working
       answer: Please contact me at jordan.west@uqconnect.edu.au
+    - question: Why can't I study more than 20 new cards per day?
+      answer: Spaced repetition is designed for long-term study, not for cramming. In fact, by studying too
+              many new words in one day you can overwhelm your memory. On top of this, if you study too many
+              cards today, you'll have way too many reviews to do in following days. That means you might miss out
+              on reviewing the most important cards.
     - question: Can I add vocabulary to the software?
       answer: No, only the preset list of words can be studied with this software. If you'd like to
               create your own
