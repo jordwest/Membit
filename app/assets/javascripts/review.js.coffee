@@ -151,6 +151,7 @@ window.Reviews.Views.Card = Backbone.View.extend({
     this.$el.html(window.Reviews.Templates.CardFront(this.model.toJSON()))
   render_back: ->
     this.$el.html(window.Reviews.Templates.CardBack(this.model.toJSON()))
+    this.$el.find('p.reading').rubyann()
   render_finished: ->
     this.$el.html(window.Reviews.Templates.Finished())
 })
