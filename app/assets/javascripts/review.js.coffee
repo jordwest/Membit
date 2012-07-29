@@ -77,17 +77,24 @@ window.Reviews.App.UserWords.reset(cardsInit)
 window.Reviews.Views.Card = Backbone.View.extend({
   id: "card-review"
   events:
-    "click .answer-button": "answer"
+    "click .answer-button": "answer_event"
     "click .reveal-button": "reveal"
     "click .reconnect-button": "reconnect"
   commsInProgress: false
+  showingBack: false
+  startTime: null
   reveal: ->
     this.render_back()
-  answer: (evt) ->
+  answer_event: (evt) ->
+    this.answer(evt.target.value)
+  answer: (answer_number) ->
+    endTime = new Date().getTime()
+    timeDiff = (endTime - this.startTime) / 1000
+
     window.Reviews.App.Reviews.add({
       user_word_id: this.model.get('id')
-      answer: evt.target.value
-      time_to_answer_in_seconds: 1
+      answer: answer_number
+      time_to_answer_in_seconds: timeDiff
       sending: false
     })
     # Need to set this in the actual collection - the collection may have been reset in the meantime
@@ -115,7 +122,6 @@ window.Reviews.Views.Card = Backbone.View.extend({
 
           # Load the new words
           window.Reviews.App.UserWords.reset(data)
-          console.log "Updated words with data from server"
           if(view.userWaiting == true)
             view.userWaiting = false
             view.render_front()
@@ -135,8 +141,6 @@ window.Reviews.Views.Card = Backbone.View.extend({
     this.userWaiting = true
     this.sendWaiting()
   selectCard: ->
-    console.log "Loading new word"
-    console.log window.Reviews.App.UserWords.where({reviewed: false}).length
     if window.Reviews.App.UserWords.where({reviewed: false}).length < 1
       this.model = null
       this.render_finished()
@@ -148,16 +152,21 @@ window.Reviews.Views.Card = Backbone.View.extend({
   render_loading: ->
     this.$el.html(window.Reviews.Templates.Loading())
   render_front: ->
+    this.showingBack = false;
     this.$el.html(window.Reviews.Templates.CardFront(this.model.toJSON()))
     $("#inline-help-card-front").show()
     $("#inline-help-card-back").hide()
   render_back: ->
+    this.showingBack = true;
     this.$el.html(window.Reviews.Templates.CardBack(this.model.toJSON()))
     this.$el.find('p.reading').rubyann()
     $("#inline-help-card-front").hide()
     $("#inline-help-card-back").show()
+    this.startTime = new Date().getTime()
   render_finished: ->
     this.$el.html(window.Reviews.Templates.Finished())
+    $("#inline-help-card-front").hide()
+    $("#inline-help-card-back").hide()
 })
 
 window.Reviews.App.CardView = new window.Reviews.Views.Card({
@@ -166,3 +175,15 @@ window.Reviews.App.CardView = new window.Reviews.Views.Card({
 })
 
 window.Reviews.App.CardView.selectCard()
+
+$(document).on "keydown", (evt) ->
+  #console.log evt.keyCode
+  if (48 <= evt.keyCode <= 53)
+    if window.Reviews.App.CardView.showingBack == true
+      window.Reviews.App.CardView.answer(evt.keyCode - 48)
+  if (96 <= evt.keyCode <= 101)
+    if window.Reviews.App.CardView.showingBack == true
+      window.Reviews.App.CardView.answer(evt.keyCode - 96)
+  if (evt.keyCode == 70)
+    if window.Reviews.App.CardView.showingBack == false
+      window.Reviews.App.CardView.render_back()

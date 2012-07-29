@@ -69,8 +69,8 @@ class User < ActiveRecord::Base
 
   # Check whether or not registrations are currently open
   def self.registrations_open?
-    return Date.today > Date.new(2012, 07, 29)
-    #false
+    #return Date.today > Date.new(2012, 07, 29)
+    true
   end
 
   # Registers a user_login entry
