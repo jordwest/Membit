@@ -20,7 +20,7 @@ Word.find_or_create_by_expression(:order => "6", :expression => "悪い天気", 
 Word.find_or_create_by_expression(:order => "7", :expression => "晴れる", :reading => "晴[は]れる", :meaning => "To clear up", :type1 => "Verb", :type2 => "ru")
 Word.find_or_create_by_expression(:order => "8", :expression => "くもる", :reading => "くもる", :meaning => "To become cloudy", :type1 => "Verb", :type2 => "u")
 Word.find_or_create_by_expression(:order => "9", :expression => "雨が降る", :reading => "雨[あめ]が 降[ふ]る", :meaning => "To rain", :type1 => "Verb", :type2 => "u")
-Word.find_or_create_by_expression(:order => "10", :expression => "雪が降る", :reading => "雪[ゆき]が 降[ふ]る", :meaning => "To rain", :type1 => "Verb", :type2 => "u")
+Word.find_or_create_by_expression(:order => "10", :expression => "雪が降る", :reading => "雪[ゆき]が 降[ふ]る", :meaning => "To snow", :type1 => "Verb", :type2 => "u")
 Word.find_or_create_by_expression(:order => "11", :expression => "気温", :reading => "気温[きおん]", :meaning => "(Air) Temperature", :type1 => "Noun", :type2 => "")
 Word.find_or_create_by_expression(:order => "12", :expression => "…度", :reading => "… 度[ど]", :meaning => "... degrees", :type1 => "Counter", :type2 => "")
 Word.find_or_create_by_expression(:order => "13", :expression => "暖かい", :reading => "暖[あたた]かい", :meaning => "Warm", :type1 => "Adjective", :type2 => "i")
