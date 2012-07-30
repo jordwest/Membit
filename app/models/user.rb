@@ -81,7 +81,8 @@ class User < ActiveRecord::Base
                           0 : ((Time.now - self.last_pageview)/86400)),
                       :cards_due => self.user_words.due.count,
                       :new_cards => self.user_words.not_studied.count,
-                      :mobile => mobile
+                      :mobile => mobile,
+                      :user_role => self.role
                   })
   end
 

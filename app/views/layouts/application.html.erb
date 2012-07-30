@@ -60,6 +60,15 @@
                     <i class='icon-home'></i> Home
                     <% end %></li>
             </ul>
+
+            <% if can? :read, :statistics %>
+            <ul class="nav">
+              <li><%= link_to "/teacher/dashboard" do %>
+                    <i class='icon-cog'></i> Statistics
+                <% end %></li>
+            </ul>
+            <% end %>
+
             <ul class="nav pull-right">
               <li>
                 <%= link_to "/help" do %>

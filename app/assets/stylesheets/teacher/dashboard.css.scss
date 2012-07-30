@@ -1,3 +1,40 @@
 // Place all the styles related to the teacher/dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.stats
+{
+  tr td
+  {
+    font-size: 16px;
+    font-weight: normal;
+  }
+}
+
+table#teacher-dashboard-vocabulary-list
+{
+  tr.not-studied td {
+    color: #aaa;
+  }
+
+  tr.very-easy td {
+    background-color: #7f7;
+  }
+
+  tr.easy td {
+    background-color: #b1d645;
+  }
+
+  tr.medium td {
+    background-color: #d8d93c;
+  }
+
+  tr.difficult td {
+    background-color: #ff9500;
+  }
+
+  tr.very-difficult td {
+    background-color: #b03a18;
+    color: #fff;
+  }
+}

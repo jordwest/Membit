@@ -1,22 +1,51 @@
 <div class="row">
   <div class="span8">
-    <h1>Teacher Dashboard</h1>
-    <table class="table table-striped table-bordered">
+    <h1>Vocabulary List</h1>
+    <p>Words are coloured based on their difficulty, where red is very difficult and light green is very easy.</p>
+    <p>The difficulties are calculated based on how the students rate their answers, so the difficulties will
+    change over time.</p>
+    <%= form_tag nil, :method => :get, :class => "well" do %>
+        <%= label "sort_by", "Sort words by:" %>
+        <%= select_tag "sort_by", options_for_select({"Study Order" => "order", "Most difficult" => "difficulty", "Most reviews this week" => "reviews_this_week"}, params[:sort_by]) %>
+        <br/><%= submit_tag "Sort", :class => "btn btn-primary" %>
+    <% end %>
+    <table class="table table-striped table-bordered stats" id="teacher-dashboard-vocabulary-list">
       <thead>
         <tr>
           <th>Word</th>
           <th>Total reviews</th>
           <th>Reviews this week</th>
-          <th>% of students who have studied</th>
+          <th>% of registered students who have studied</th>
+          <th>Difficulty</th>
+          <th>Average interval</th>
         </tr>
       </thead>
       <tbody>
-        <% @words.each do |word| %>
-          <tr>
-            <td><%= word.expression%></td>
-            <td><%= word.reviews.where({:user_role => :participant}).count %></td>
-            <td><%= word.reviews.where({:user_role => :participant}).where("created_at > ?", Time.now.beginning_of_week).count %></td>
-            <td><%= @total_users || (word.user_words.participant_only.where({:new_card => false}).count / @total_users)*100 %>%</td>
+        <% @word_list.each do |word| %>
+          <%
+          row_class =
+          case
+            when word["number_studied"] < 1
+             "not-studied"
+            when word["easiness"] > 0.8
+             "very-easy"
+            when word["easiness"] > 0.6
+             "easy"
+            when word["easiness"] > 0.4
+             "medium"
+            when word["easiness"] > 0.2
+             "difficult"
+            else
+             "very-difficult"
+          end
+           %>
+          <tr class="<%= row_class %>">
+            <td><%= word["expression"] %></td>
+            <td><%= word["total_reviews"] %></td>
+            <td><%= word["reviews_this_week"] %></td>
+            <td><%= word["number_studied"] %> of <%= @total_users %> students (<%= word["pct_studied"] %>%)</td>
+            <td><%= (100 - word["easiness"]*100).to_i %>%</td>
+            <td><%= word["interval"] %> days</td>
           </tr>
         <% end %>
       </tbody>

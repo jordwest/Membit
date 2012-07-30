@@ -23,4 +23,12 @@ class Word < ActiveRecord::Base
       new_uw.save
     end
   end
+
+  def average_easiness_factor
+    self.user_words.participant_only.average(:easiness_factor)
+  end
+
+  def average_interval
+    self.user_words.participant_only.average(:interval)
+  end
 end
