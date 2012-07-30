@@ -1,5 +1,6 @@
 class Word < ActiveRecord::Base
   has_many :user_words, :dependent => :destroy
+  has_many :reviews
 
   attr_accessible :order, :average_easiness_factor, :expression, :meaning, :reading, :reviewed_count, :honorific, :type1, :type2
 

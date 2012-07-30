@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="span8">
+    <h1>Teacher Dashboard</h1>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Total reviews</th>
+          <th>Reviews this week</th>
+          <th># of users studied</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @words.each do |word| %>
+          <tr>
+            <td><%= word.expression%></td>
+            <td><%= word.reviews.where({:user_role => :participant}).count %></td>
+            <td><%= word.user_words.where("last_review > ?", Time.now.beginning_of_week).count %></td>
+            <td><%= word.user_words.where({:new_card => false}).count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="span4">
+    <%= render "teacher/dashboard/navmenu" %>
+  </div>
+</div>

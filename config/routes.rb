@@ -18,6 +18,10 @@ Membit::Application.routes.draw do
   #resources :account
   #resources :sessions
 
+  # Teacher stuff
+  match "teacher/dashboard" => "teacher/dashboard#index"
+  match "teacher/dashboard/words" => "teacher/dashboard#words"
+
   # Administration
   match "registration_codes" => 'registration_codes#mark', :via => :put
   resources :registration_codes

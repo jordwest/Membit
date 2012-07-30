@@ -3,7 +3,7 @@ class UserWord < ActiveRecord::Base
   belongs_to :word
   #attr_accessible :correct_count, :easiness_factor, :incorrect_count, :interval, :last_review, :new_card, :next_due
 
-  has_many :reviews
+  has_many :reviews, :dependent => :destroy
 
   after_initialize :defaults
 
