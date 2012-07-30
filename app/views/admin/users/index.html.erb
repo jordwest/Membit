@@ -9,6 +9,7 @@
     <th>Last Review</th>
     <th>Cards Studied</th>
     <th>Total Reviews</th>
+    <th>Logins (D+M=T)</th>
   </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
       <td><%= timeago review.created_at if !review.nil? %></td>
       <td><%= user.user_words.studied.count %></td>
       <td><%= user.reviews.count %></td>
+      <td><%= user.user_logins.where({:mobile => false}).count %> + <%= user.user_logins.where({:mobile => true}).count %> = <%= user.user_logins.count %></td>
     </tr>
     <% end %>
   </tbody>
