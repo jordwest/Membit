@@ -6,6 +6,8 @@ window.Reviews =
   Templates: {}
   App: {}
 
+debugOutput = false
+
 window.Reviews.Templates.CardFront =
   _.template("
       <p class='prompt'>Recall the reading and meaning of the word:</p>
@@ -70,9 +72,11 @@ window.Reviews.Collections.Reviews = Backbone.Collection.extend({
 
 window.Reviews.App.Reviews = new window.Reviews.Collections.Reviews()
 window.Reviews.App.SendingReviews = new window.Reviews.Collections.Reviews()
+window.Reviews.App.ReviewHistory = new window.Reviews.Collections.Reviews()
 
 window.Reviews.App.UserWords = new window.Reviews.Collections.UserWords()
-window.Reviews.App.UserWords.reset(cardsInit)
+if(typeof cardsInit != 'undefined')
+  window.Reviews.App.UserWords.reset(cardsInit)
 
 window.Reviews.Views.Card = Backbone.View.extend({
   id: "card-review"
@@ -81,7 +85,7 @@ window.Reviews.Views.Card = Backbone.View.extend({
     "click .reveal-button": "reveal"
     "click .reconnect-button": "reconnect"
   commsInProgress: false
-  showingBack: false
+  showingSide: "none"
   startTime: null
   reveal: ->
     this.render_back()
@@ -91,12 +95,17 @@ window.Reviews.Views.Card = Backbone.View.extend({
     endTime = new Date().getTime()
     timeDiff = (endTime - this.startTime) / 1000
 
-    window.Reviews.App.Reviews.add({
+    review = window.Reviews.App.Reviews.add({
       user_word_id: this.model.get('id')
       answer: answer_number
       time_to_answer_in_seconds: timeDiff
       sending: false
+      last_review: this.model.get('last_review')
     })
+    window.Reviews.App.ReviewHistory.add(review.toJSON())
+    if(debugOutput)
+      console.log review.toJSON()
+      console.log "Answered ID "+this.model.get('id')
     # Need to set this in the actual collection - the collection may have been reset in the meantime
     _(window.Reviews.App.UserWords.where({id: this.model.id})).first().set('reviewed', true)
     this.selectCard()
@@ -104,12 +113,19 @@ window.Reviews.Views.Card = Backbone.View.extend({
   sendWaiting: ->
     if(window.Reviews.App.Reviews.length < 1)
       return
+    if(debugOutput)
+      console.log "Sending waiting reviews:"
+      console.log window.Reviews.App.Reviews.toJSON()
     if(this.commsInProgress == true)
+      if(debugOutput)
+        console.log "Can't send, comms in progress"
       this.userWaiting = true
       this.render_loading()
     else
       this.commsInProgress = true
       view = this
+      if(debugOutput)
+        console.log "Performing request"
       $.ajax({
         data: {reviews: JSON.stringify(window.Reviews.App.Reviews.toJSON())}
         cache: false
@@ -117,11 +133,19 @@ window.Reviews.Views.Card = Backbone.View.extend({
         url: 'review.json'
         type: 'POST'
         success: (data, textStatus, jqXHR) ->
+          if(debugOutput)
+            console.log "Request successful"
           view.commsInProgress = false
           window.Reviews.App.SendingReviews.reset([])
 
           # Load the new words
           window.Reviews.App.UserWords.reset(data)
+        
+          # Make sure current word is in the set
+          if(view.model != null && window.Reviews.App.UserWords.where({id: view.model.id}).length < 1)
+            console.log "Switched cards"
+            view.selectCard()
+
           if(view.userWaiting == true)
             view.userWaiting = false
             view.render_front()
@@ -141,29 +165,47 @@ window.Reviews.Views.Card = Backbone.View.extend({
     this.userWaiting = true
     this.sendWaiting()
   selectCard: ->
-    if window.Reviews.App.UserWords.where({reviewed: false}).length < 1
+    availableCards = window.Reviews.App.UserWords.filter (uw) ->
+      return (window.Reviews.App.ReviewHistory.where({
+        user_word_id: uw.get('id')
+        last_review: uw.get('last_review')
+      }).length == 0)
+    if availableCards.length < 1
       this.model = null
       this.render_finished()
+      if(debugOutput)
+        console.log "Cards finished"
     else
-      this.model = _(window.Reviews.App.UserWords.where({reviewed: false})).first()
+      this.model = _(availableCards).first()
+      if(debugOutput)
+        console.log "Selected card ID="+this.model.id
       this.render_front()
   render_error: ->
+    this.showingSide = "none";
     this.$el.html(window.Reviews.Templates.Error())
   render_loading: ->
+    this.showingSide = "none";
     this.$el.html(window.Reviews.Templates.Loading())
   render_front: ->
-    this.showingBack = false;
+    if(this.model == null)
+      this.render_finished()
+      return
+    this.showingSide = "front";
     this.$el.html(window.Reviews.Templates.CardFront(this.model.toJSON()))
     $("#inline-help-card-front").show()
     $("#inline-help-card-back").hide()
   render_back: ->
-    this.showingBack = true;
+    if(this.model == null)
+      this.render_finished()
+      return
+    this.showingSide = "back";
     this.$el.html(window.Reviews.Templates.CardBack(this.model.toJSON()))
     this.$el.find('p.reading').rubyann()
     $("#inline-help-card-front").hide()
     $("#inline-help-card-back").show()
     this.startTime = new Date().getTime()
   render_finished: ->
+    this.showingSide = "none";
     this.$el.html(window.Reviews.Templates.Finished())
     $("#inline-help-card-front").hide()
     $("#inline-help-card-back").hide()
@@ -179,11 +221,11 @@ window.Reviews.App.CardView.selectCard()
 $(document).on "keydown", (evt) ->
   #console.log evt.keyCode
   if (48 <= evt.keyCode <= 53)
-    if window.Reviews.App.CardView.showingBack == true
+    if window.Reviews.App.CardView.showingSide == "back"
       window.Reviews.App.CardView.answer(evt.keyCode - 48)
   if (96 <= evt.keyCode <= 101)
-    if window.Reviews.App.CardView.showingBack == true
+    if window.Reviews.App.CardView.showingSide == "back"
       window.Reviews.App.CardView.answer(evt.keyCode - 96)
   if (evt.keyCode == 70)
-    if window.Reviews.App.CardView.showingBack == false
+    if window.Reviews.App.CardView.showingSide == "front"
       window.Reviews.App.CardView.render_back()

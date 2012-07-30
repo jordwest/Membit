@@ -1,5 +1,5 @@
 object @card
-attributes :id, :next_due, :failed, :new
+attributes :id, :next_due, :failed, :new, :last_review
 node :reviewed do |n|
   false
 end
