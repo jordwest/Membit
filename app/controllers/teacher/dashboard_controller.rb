@@ -29,7 +29,8 @@ class Teacher::DashboardController < ApplicationController
       @word_info["expression"] = word.expression
       @word_info["total_reviews"] = word.reviews.where({:user_role => :participant}).count
       @word_info["reviews_this_week"] = word.reviews
-                                  .where("user_role = \"participant\" and created_at > ?", Time.now.beginning_of_week)
+                                  .where({:user_role => "participant"})
+                                  .where("created_at > ?", Time.now.beginning_of_week)
                                   .count
       @word_info["number_studied"] = word.user_words.participant_only.where({:new_card => false}).count
       @word_info["pct_studied"] = ((@word_info["number_studied"]/@total_users.to_f)*100).to_i
