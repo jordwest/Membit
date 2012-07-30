@@ -1,11 +1,30 @@
 class ReviewController < ApplicationController
   def review
+    authorize! :review, UserWord
     if !params[:reviews].nil?
       reviews = JSON.parse params[:reviews]
       puts reviews.to_s
       reviews.each do |review|
-        user_word = UserWord.find(review['user_word_id'])
-        user_word.review(review['answer'].to_i, review['time_to_answer_in_seconds'].to_f)
+        user_word = current_user.user_words.find(review['user_word_id'])
+
+        if review['last_review'].nil? && user_word.last_review.nil?
+          valid = true
+        else
+          # Make sure the review exists!
+          remote_last_review = user_word.last_review.to_s
+          local_last_review = Time.parse(review['last_review']).to_s
+          valid = (local_last_review == remote_last_review)
+        end
+
+        if valid
+          user_word.review(review['answer'].to_i, review['time_to_answer_in_seconds'].to_f)
+        else
+          log = AppLog.new({:type => "Security"})
+          log.details = "Invalid last_review check when attempting to review. "+remote_last_review+" != "+local_last_review
+          log.var1 = review['user_word_id']
+          log.user = current_user
+          log.save
+        end
       end
     end
 

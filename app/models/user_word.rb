@@ -24,6 +24,7 @@ class UserWord < ActiveRecord::Base
   scope :participant_only, joins(:user).where("users.role" => "participant")
 
   scope :not_studied, where(:new_card => true).order("id ASC")
+  scope :studied, where(:new_card => false).order("id ASC")
   scope :short_term, where("interval between ? and ?", 1, 14).where(:new_card => false)
   scope :long_term, where("interval > ?", 14).where(:new_card => false)
 

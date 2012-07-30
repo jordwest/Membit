@@ -53,28 +53,34 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Membit</a>
+          <a class="brand" href="/">Membit</a>
           <div class="container nav-collapse">
             <ul class="nav">
               <li><%= link_to "/" do %>
                     <i class='icon-home'></i> Home
                     <% end %></li>
-            </ul>
 
             <% if can? :read, :statistics %>
-            <ul class="nav">
-              <li><%= link_to "/teacher/dashboard" do %>
-                    <i class='icon-cog'></i> Statistics
-                <% end %></li>
-            </ul>
+              <%= tb_navbar_dropdown tb_icon("cog", "Teacher") do %>
+                  <%= tb_nav_link tb_icon("home", "Overview"), "/teacher/dashboard" %>
+                  <%= tb_nav_link tb_icon("th-list", "Vocabulary"), "/teacher/dashboard/words" %>
+                  <%= tb_nav_link tb_icon("signal", "Usage Statistics"), "/teacher/dashboard/usage" %>
+              <% end %>
             <% end %>
 
+              <% if can? :manage, :all %>
+                  <%= tb_navbar_dropdown tb_icon("lock", "Administration") do %>
+                      <%= tb_nav_link tb_icon("lock", "Registration Codes"), "/registration_codes" %>
+                      <%= tb_nav_link tb_icon("th-list", "Application Logs"), "/admin/logs" %>
+                      <%= tb_nav_link tb_icon("user", "Users"), "/admin/users" %>
+                  <% end %>
+              <% end %>
+            </ul>
+
+
+
             <ul class="nav pull-right">
-              <li>
-                <%= link_to "/help" do %>
-                    <i class="icon-question-sign"></i> Help
-                <% end %>
-              </li>
+              <%= tb_nav_link tb_icon("question-sign", "Help"), "/help" %>
               <% if !user_signed_in?%>
                   <% if User.registrations_open? %>
                     <li>
@@ -96,50 +102,16 @@
                       <i class='icon-user'></i> Account
                        <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                      <li>
-                        <%= link_to "/account/change_password" do %>
-                            <i class='icon-lock'></i> Change Password
-                        <% end %>
-                      </li>
+                      <%= tb_nav_link tb_icon("lock", "Change Password"), "/account/change_password" %>
+
                       <% if can? :read, :dashboard %>
-                          <li>
-                            <%= link_to "/dashboard/words" do %>
-                                <i class='icon-list'></i> Word List
-                            <% end %>
-                          </li>
-                          <li>
+                          <%= tb_nav_link tb_icon("list", "Word List"), "/dashboard/words" %>
                       <% end %>
                       <% if can? :withdraw, :self %>
-                          <li>
-                            <%= link_to "/account/withdraw" do %>
-                                <i class='icon-trash'></i> Withdraw Participation...
-                            <% end %>
-                          </li>
-                          <li>
+                          <%= tb_nav_link tb_icon("trash", "Withdraw Participation..."), "/account/withdraw" %>
                       <% end %>
                       <hr/>
-                      </li>
-                      <li>
-                        <%= link_to "/log_out" do %>
-                            <i class='icon-off'></i> Log out
-                        <% end %>
-                      </li>
-                    </ul>
-                  </li>
-              <% end %>
-              <% if can? :manage, :all %>
-                  <li class="dropdown">
-                    <a href="#"
-                       class="dropdown-toggle"
-                       data-toggle="dropdown">
-                      <i class='icon-lock'></i> Administration
-                      <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <%= link_to "/registration_codes" do %>
-                            <i class='icon-lock'></i> Manage Registration Codes
-                        <% end %>
-                      </li>
+                      <%= tb_nav_link tb_icon("off", "Log out"), "/log_out" %>
                     </ul>
                   </li>
               <% end %>

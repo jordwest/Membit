@@ -1,5 +1,6 @@
 Membit::Application.routes.draw do
 
+
   match "review" => "review#review"
   match "dashboard" => "dashboard#index"
   match "dashboard/words" => "dashboard#words"
@@ -24,8 +25,11 @@ Membit::Application.routes.draw do
   match "teacher/dashboard/usage" => "teacher/dashboard#usage"
 
   # Administration
-  match "registration_codes" => 'registration_codes#mark', :via => :put
+  match "registration_codes" => "registration_codes#mark", :via => :put
   resources :registration_codes
+
+  match "admin/logs" => "admin/logs#index"
+  match "admin/users" => "admin/users#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

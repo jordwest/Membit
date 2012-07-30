@@ -1,0 +1,28 @@
+<h1>User List</h1>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Role</th>
+    <th>Created At</th>
+    <th>Last Pageview</th>
+    <th>Last Review</th>
+    <th>Cards Studied</th>
+    <th>Total Reviews</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.role %></td>
+      <td><%= timeago user.created_at %></td>
+      <td><%= timeago user.last_pageview %></td>
+      <% review = user.reviews.order("created_at DESC").first %>
+      <td><%= timeago review.created_at if !review.nil? %></td>
+      <td><%= user.user_words.studied.count %></td>
+      <td><%= user.reviews.count %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

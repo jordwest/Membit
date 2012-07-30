@@ -52,7 +52,7 @@ window.Reviews.Templates.Loading =
 
 window.Reviews.Templates.Error =
   _.template("<div class='error'>Couldn't talk to the server. Please check
-   your internet connection then press Reconnect</div>
+   your internet connection then press Reconnect<br/><br/>If you're still having trouble, try refreshing this page.</div>
    <div class='center'><button class='btn btn-primary reconnect-button'>Reconnect</button> </div>")
 
 window.Reviews.Templates.Finished =

@@ -11,6 +11,7 @@ class Ability
       can :create, UserWord
       can :withdraw, :self
       can :read, :dashboard
+      can :review, UserWord
     elsif user.role.admin?
       can :read, :all
       can :manage, :all
