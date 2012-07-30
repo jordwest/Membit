@@ -15,7 +15,7 @@
           <tr>
             <td><%= word.expression%></td>
             <td><%= word.reviews.where({:user_role => :participant}).count %></td>
-            <td><%= word.user_words.where("last_review > ?", Time.now.beginning_of_week).count %></td>
+            <td><%= word.reviews.where({:user_role => :participant}).where("created_at > ?", Time.now.beginning_of_week).count %></td>
             <td><%= word.user_words.where({:new_card => false}).count %></td>
           </tr>
         <% end %>
