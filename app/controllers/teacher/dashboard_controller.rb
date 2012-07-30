@@ -17,5 +17,6 @@ class Teacher::DashboardController < ApplicationController
   def words
     authorize! :read, :statistics
     @words = Word.order("id ASC")
+    @total_users = User.where(:role => :participant).count
   end
 end

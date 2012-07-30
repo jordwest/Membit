@@ -11,6 +11,8 @@ class RegistrationCodesController < ApplicationController
       @codes = RegistrationCode
     end
 
+    @codes = @codes.order("id ASC")
+
     if params[:tag].is_a?(String) and params[:tag] != ''
       @codes = @codes.find_all_by_tag(params[:tag])
     else

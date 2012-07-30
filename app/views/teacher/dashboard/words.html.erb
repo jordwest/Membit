@@ -7,7 +7,7 @@
           <th>Word</th>
           <th>Total reviews</th>
           <th>Reviews this week</th>
-          <th># of users studied</th>
+          <th>% of students who have studied</th>
         </tr>
       </thead>
       <tbody>
@@ -16,7 +16,7 @@
             <td><%= word.expression%></td>
             <td><%= word.reviews.where({:user_role => :participant}).count %></td>
             <td><%= word.reviews.where({:user_role => :participant}).where("created_at > ?", Time.now.beginning_of_week).count %></td>
-            <td><%= word.user_words.where({:new_card => false}).count %></td>
+            <td><%= @total_users || (word.user_words.participant_only.where({:new_card => false}).count / @total_users)*100 %>%</td>
           </tr>
         <% end %>
       </tbody>
