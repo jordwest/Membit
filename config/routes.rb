@@ -21,6 +21,7 @@ Membit::Application.routes.draw do
   # Teacher stuff
   match "teacher/dashboard" => "teacher/dashboard#index"
   match "teacher/dashboard/words" => "teacher/dashboard#words"
+  match "teacher/dashboard/usage" => "teacher/dashboard#usage"
 
   # Administration
   match "registration_codes" => 'registration_codes#mark', :via => :put

@@ -29,6 +29,10 @@ class Word < ActiveRecord::Base
   end
 
   def average_interval
-    self.user_words.participant_only.average(:interval)
+    self.user_words.participant_only.where(:new_card => false).average(:interval)
+  end
+
+  def number_failed
+    self.user_words.participant_only.where(:failed => true).count
   end
 end

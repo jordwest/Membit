@@ -1,13 +1,27 @@
 class Teacher::DashboardController < ApplicationController
   def index
     authorize! :read, :statistics
+
+    @total_users = User.where({:role => :participant}).count
+
     @metrics = Array.new
     
     # Users registered
-    @metrics << {:metric => "Total students registered", :value => User.where({:role => :participant}).count}
+    @metrics << {:metric => "Total students registered", :value => @total_users}
+
+    # Users logged in this week
+    logged_in_this_week = User.where({:role => :participant}).where("last_pageview > ?", Time.now.beginning_of_week).count.to_s + " of " + @total_users.to_s
+    @metrics << {:metric => "Students logged in this week", :value => logged_in_this_week}
 
     # Users logged in today
-    @metrics << {:metric => "Students logged in today", :value => User.where({:role => :participant}).where("last_pageview > ?", Time.now.beginning_of_day).count}
+    logged_in_today = User.where({:role => :participant}).where("last_pageview > ?", Time.now.beginning_of_day).count.to_s + " of " + @total_users.to_s
+    @metrics << {:metric => "Students logged in today", :value => logged_in_today}
+
+    # Total reviews
+    @metrics << {:metric => "Total reviews", :value => Review.where({:user_role => :participant}).count}
+
+    # Total reviews this week
+    @metrics << {:metric => "Total reviews completed this week", :value => Review.where({:user_role => :participant}).where("created_at > ?", Time.now.beginning_of_week).count}
 
     # Total reviews today
     @metrics << {:metric => "Total reviews completed today", :value => Review.where({:user_role => :participant}).where("created_at > ?", Time.now.beginning_of_day).count}
@@ -36,6 +50,7 @@ class Teacher::DashboardController < ApplicationController
       @word_info["pct_studied"] = ((@word_info["number_studied"]/@total_users.to_f)*100).to_i
       @word_info["easiness"] = (word.average_easiness_factor - 1.3)/1.2
       @word_info["interval"] = word.average_interval
+      @word_info["failed"] = word.number_failed
       @word_list << @word_info
     end
 
