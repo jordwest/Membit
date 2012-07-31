@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
             details += bt.to_s+"\n"
           end
           AppLog.log("Exception", details, current_user, nil, nil)
-          flash[:alert] = "Something went wrong... The error has been recorded and I'll try to fix it ASAP. In the meantime you can continue to use the software. If the issue isn't going away, please contact me at jordan.west@uqconnect.edu.au."
+          flash[:alert] = "Something went wrong... The problem has been recorded and I'll try to fix it ASAP. In the meantime you can continue to use the software. If the issue isn't going away, please contact me at jordan.west@uqconnect.edu.au."
           redirect_to "/"
         else
           raise exception
