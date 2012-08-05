@@ -28,12 +28,31 @@ class ReviewController < ApplicationController
       end
     end
 
-    new_remaining_today = 20 - current_user.reviews.new_studied_today.count
-    new_remaining_today = 0 if new_remaining_today < 0
+    new_remaining_today = current_user.new_remaining_today
 
-    @cards = current_user.user_words.due.includes(:word)
+    @cards = Array.new
+
+    show_failed_first = (current_user.user_words.failed.count >= UserWord.max_failed)
+
+    if show_failed_first
+      @cards += current_user.user_words.failed.order("last_review ASC").includes(:word)
+    end
+
+    @cards += current_user.user_words.due.includes(:word)
     @cards += current_user.user_words.not_studied.limit(new_remaining_today).includes(:word)
-    @cards += current_user.user_words.failed.order("last_review ASC").includes(:word)
+
+    if !show_failed_first
+      @cards += current_user.user_words.failed.order("last_review ASC").includes(:word)
+    end
+
+    @stats = Hash.new
+
+    @stats["total_new"] = UserWord.new_per_day
+    @stats["remaining_new"] = current_user.new_remaining_today
+    @stats["remaining_due"] = current_user.user_words.due.count
+    @stats["remaining_failed"] = current_user.user_words.failed.count
+    @stats["total_remaining"] = @stats["remaining_new"] + @stats["remaining_due"] + @stats["remaining_failed"]
+    @stats["total_reviews_today"] = @stats["total_remaining"] + current_user.reviews.completed_today.count
 
     # Artificial delay for slow response testing
     sleep(1) if !params[:reviews].nil? && !Rails.env.production?

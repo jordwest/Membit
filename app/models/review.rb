@@ -8,4 +8,9 @@ class Review < ActiveRecord::Base
     subtract_3hrs = Time.now - 10800
     where(:was_new => true).where("created_at > ?", subtract_3hrs.beginning_of_day+10800)
   }
+
+  scope :completed_today, lambda {
+    subtract_3hrs = Time.now - 10800
+    where(:correct => true).where("created_at > ?", subtract_3hrs.beginning_of_day+10800)
+  }
 end

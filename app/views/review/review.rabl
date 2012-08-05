@@ -1,3 +1,9 @@
-collection @cards
+object false
 
-extends "review/card"
+node :stats do
+  object @stats
+end
+
+child @cards => "cards" do
+  extends "review/cards"
+end

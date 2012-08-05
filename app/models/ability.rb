@@ -19,6 +19,9 @@ class Ability
       cannot :withdraw, :self
     elsif user.role.teacher?
       can :read, :statistics
+      can :read, :dashboard
+      can :review, UserWord
+      can :create, UserWord
     end
   end
 end

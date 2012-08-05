@@ -114,4 +114,12 @@ class UserWord < ActiveRecord::Base
 
     self.save
   end
+
+  def self.new_per_day
+    return 20
+  end
+
+  def self.max_failed
+    return 7
+  end
 end

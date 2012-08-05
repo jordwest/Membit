@@ -96,4 +96,10 @@ class User < ActiveRecord::Base
     self.last_pageview = Time.now
     self.save!
   end
+
+  def new_remaining_today
+    new_remaining_today = UserWord.new_per_day - self.reviews.new_studied_today.count
+    new_remaining_today = 0 if new_remaining_today < 0
+    return new_remaining_today
+  end
 end

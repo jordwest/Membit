@@ -7,6 +7,8 @@
 
   </div>
   <div class="span4">
+    <div class="review-stats">
+    </div>
     <div class="inline-help-container">
       <a href="javascript:;" class="inline-help-toggle"><i class="icon-question-sign"></i> Show/Hide Help</a>
 
@@ -62,5 +64,5 @@
 </div><!--/row-->
 
 <script type="text/javascript">
-  cardsInit = <%= Rabl::Renderer.json(@cards, 'review/review', :view_path => 'app/views').html_safe %>
+  cardsInit = <%= render(:file => "review/review", :formats => [:json]).html_safe %>
 </script>

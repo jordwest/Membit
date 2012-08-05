@@ -75,8 +75,6 @@ window.Reviews.App.SendingReviews = new window.Reviews.Collections.Reviews()
 window.Reviews.App.ReviewHistory = new window.Reviews.Collections.Reviews()
 
 window.Reviews.App.UserWords = new window.Reviews.Collections.UserWords()
-if(typeof cardsInit != 'undefined')
-  window.Reviews.App.UserWords.reset(cardsInit)
 
 window.Reviews.Views.Card = Backbone.View.extend({
   id: "card-review"
@@ -139,7 +137,8 @@ window.Reviews.Views.Card = Backbone.View.extend({
           window.Reviews.App.SendingReviews.reset([])
 
           # Load the new words
-          window.Reviews.App.UserWords.reset(data)
+          window.Reviews.App.UserWords.reset(data.cards)
+          window.Reviews.App.Stats.set(data.stats)
         
           # Make sure current word is in the set
           if(view.model != null && window.Reviews.App.UserWords.where({id: view.model.id}).length < 1)
@@ -216,8 +215,6 @@ window.Reviews.App.CardView = new window.Reviews.Views.Card({
   el: "#card-review"
 })
 
-window.Reviews.App.CardView.selectCard()
-
 $(document).on "keydown", (evt) ->
   #console.log evt.keyCode
   if (48 <= evt.keyCode <= 53)
@@ -229,3 +226,51 @@ $(document).on "keydown", (evt) ->
   if (evt.keyCode == 70)
     if window.Reviews.App.CardView.showingSide == "front"
       window.Reviews.App.CardView.render_back()
+
+window.Reviews.Models.Stats = Backbone.Model.extend({})
+window.Reviews.Views.Stats = Backbone.View.extend({
+  initialize: ->
+    this.model.on 'change', this.render, this
+  template: _.template("
+  <h3>Today's Study</h3>
+  <table class='table'>
+    <tbody>
+      <tr>
+        <td>Due for review:</td>
+        <td><%= remaining_due + remaining_failed %></td>
+      </tr>
+      <tr>
+        <td>New words:</td>
+        <td><%= remaining_new %></td>
+      </tr>
+      <tr class='total'>
+        <td>Total remaining today:</td>
+        <td><%= total_remaining %></td>
+      </tr>
+      <tr>
+        <td colspan=2><div class='progress progress-striped'>
+          <div class='bar' style='width: <%= (1-(total_remaining/total_reviews_today))*100 %>%;'>
+            <%= total_reviews_today-total_remaining %> of <%= total_reviews_today %> words
+          </div>
+        </div></td>
+      </tr>
+      </tbody>
+  </table>
+        ")
+  render: ->
+    this.$el.html(this.template(this.model.toJSON()))
+})
+
+window.Reviews.App.Stats = new window.Reviews.Models.Stats()
+window.Reviews.App.StatsView = new window.Reviews.Views.Stats({
+  el: ".review-stats"
+  model: window.Reviews.App.Stats
+})
+
+# Init stuff
+
+if(typeof cardsInit != 'undefined')
+  window.Reviews.App.UserWords.reset(cardsInit.cards)
+  window.Reviews.App.Stats.set(cardsInit.stats)
+
+window.Reviews.App.CardView.selectCard()

@@ -55,3 +55,16 @@
     text-align: center;
   }
 }
+
+.review-stats
+{
+  table
+  {
+    font-size: 14px;
+    tr.total
+    {
+      border-top: 3px solid #000;
+      font-weight: bold;
+    }
+  }
+}
