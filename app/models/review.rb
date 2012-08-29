@@ -13,4 +13,6 @@ class Review < ActiveRecord::Base
     subtract_3hrs = Time.now - 10800
     where(:correct => true).where("created_at > ?", subtract_3hrs.beginning_of_day+10800)
   }
+
+  scope :participants_only, where({:user_role => :participant})
 end

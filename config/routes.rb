@@ -31,6 +31,8 @@ Membit::Application.routes.draw do
   match "admin/logs" => "admin/logs#index"
   match "admin/users" => "admin/users#index"
 
+  match "admin/data/reviews" => "admin/dataoutput#reviews"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
