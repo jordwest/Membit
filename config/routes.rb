@@ -15,6 +15,7 @@ Membit::Application.routes.draw do
   delete "account/withdraw" => "account#destroy"
   match "account/change_password" => "account#change_password"
   match "account/create" => "account#create"
+  match "account/reset_password" => "account#reset_password"
 
   #resources :account
   #resources :sessions

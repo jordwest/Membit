@@ -86,6 +86,35 @@ class AccountController < ApplicationController
     end
   end
 
+  def reset_password
+    redirect_to '/' if !current_user.nil?
+
+    if !params[:email].nil?
+      user = User.find_by_email(params[:email])
+
+      if(user.nil?)
+        flash.now.alert = "Couldn't find a user with the email address "+params[:email]
+        return
+      end
+
+      new_password = ""
+      # Generate a new password
+      allowedChars = "abcdefghkmnpqrstuvwxyzABCDEFGHJKMNPQRTUVWXYZ234789"
+
+      10.times do
+        new_password << allowedChars[rand(allowedChars.size)]
+      end
+
+      AppLog.log("Security", "Password reset", user, nil, nil)
+      AccountMessager.reset_password(user, new_password).deliver
+
+      # TODO: Actually save the new password
+      
+
+      flash.now.notice = "Password reset successfully"
+    end
+  end
+
   private
 
   def check_registration_code
