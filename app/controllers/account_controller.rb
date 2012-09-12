@@ -109,7 +109,10 @@ class AccountController < ApplicationController
       AccountMessager.reset_password(user, new_password).deliver
 
       # TODO: Actually save the new password
-      
+      user.password_digest = nil
+      user.password = new_password
+      user.password_confirmation = new_password
+      user.save
 
       flash.now.notice = "Password reset successfully"
     end
