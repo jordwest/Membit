@@ -89,11 +89,11 @@ class AccountController < ApplicationController
   def reset_password
     redirect_to '/' if !current_user.nil?
 
-    if !params[:email].nil?
-      user = User.find_by_email(params[:email])
+    if !params[:registration_code].nil?
+      user = User.find_by_registration_code(params[:registration_code])
 
       if(user.nil?)
-        flash.now.alert = "Couldn't find a user with the email address "+params[:email]
+        flash.now.alert = "Couldn't find a user with the registration code "+params[:registration_code]
         return
       end
 
@@ -114,7 +114,7 @@ class AccountController < ApplicationController
       user.password_confirmation = new_password
       user.save
 
-      flash.now.notice = "Password reset successfully"
+      flash.now.notice = "A password reset email was sent to "+user.email
     end
   end
 

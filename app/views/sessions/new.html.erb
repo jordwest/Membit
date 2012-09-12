@@ -22,6 +22,9 @@
         <h1>Log In</h1>
         <%= form_tag '/log_in', :class => 'well' do %>
 
+            <p>
+            <%= link_to "Forgotten password", '/account/reset_password'  %>
+            </p>
             <%= label_tag :email %>
             <%= email_field_tag :email, params[:email] %>
 
