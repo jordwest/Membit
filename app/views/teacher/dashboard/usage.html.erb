@@ -1,7 +1,36 @@
+<script type="text/javascript">
+    window.charts = {}
+    window.charts.device_usage = [
+        <%= @device_usage["mobile_and_desktop"] %>,
+        <%= @device_usage["desktop"] %>,
+        <%= @device_usage["mobile"] %>,
+        <%= @device_usage["none"] %>];
+    window.charts.user_review_count = <%= @user_review_count.to_json.html_safe %>;
+    window.charts.reviews_over_semester = <%= @reviews_over_semester.to_json.html_safe %>;
+    window.charts.reviews_since_registering = <%= @reviews_since_registering.to_json.html_safe %>;
+</script>
+
+
 <div class="row">
   <div class="span8">
     <h1>Usage Statistics</h1>
-    <p>This page not yet complete</p>
+
+    <h3>Device Usage</h3>
+    <div id="device-usage-chart" class="chart">
+    </div>
+
+    <h3>Number of reviews completed</h3>
+    <div id="user-review-count" class="chart">
+    </div>
+
+    <h3>Number of reviews completed over semester</h3>
+    <div id="reviews-over-semester" class="chart">
+    </div>
+
+    <h3>Number of reviews completed since registering</h3>
+    <div id="reviews-since-registering" class="chart">
+    </div>
+
   </div>
   <div class="span4">
     <%= render "teacher/dashboard/navmenu" %>

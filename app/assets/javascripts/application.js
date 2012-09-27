@@ -16,5 +16,7 @@
 //= require twitter/bootstrap
 //= require underscore
 //= require backbone
+//= require highcharts
+//= require highcharts/themes/grid
 //= require_tree .
 

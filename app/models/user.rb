@@ -27,7 +27,18 @@ class User < ActiveRecord::Base
 
   after_create :create_user_words, :use_registration_code
 
+  ACTIVE_THRESHOLD = 200
+
+  scope :participants, where({:role => :participant})
+  scope :active, where("reviews_count > ?", User::ACTIVE_THRESHOLD)
+  scope :inactive, where("reviews_count <= ?", User::ACTIVE_THRESHOLD)
+
   classy_enum_attr :role
+
+  # Whether or not the user is considered 'active'
+  def active?
+    return (self.reviews_count > User::ACTIVE_THRESHOLD)
+  end
 
   def registration_code_available
     if !registration_code.blank? and RegistrationCode.find_by_code_and_used(registration_code, false).nil?

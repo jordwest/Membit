@@ -40,6 +40,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-ui-rails'
   gem 'rails-backbone'
+  gem 'highcharts-rails', '~> 2.3.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

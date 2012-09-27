@@ -33,26 +33,8 @@ class Teacher::DashboardController < ApplicationController
 
   def words
     authorize! :read, :statistics
-    @words = Word.order("id ASC")
+    @word_list = ReportCache.get_data_with_key("word_list")
     @total_users = User.where(:role => :participant).count
-
-    @word_list = Array.new
-    @words.each do |word|
-      @word_info = Hash.new
-      @word_info["order"] = word.order
-      @word_info["expression"] = word.expression
-      @word_info["total_reviews"] = word.reviews.where({:user_role => :participant}).count
-      @word_info["reviews_this_week"] = word.reviews
-                                  .where({:user_role => "participant"})
-                                  .where("created_at > ?", Time.now.beginning_of_week)
-                                  .count
-      @word_info["number_studied"] = word.user_words.participant_only.where({:new_card => false}).count
-      @word_info["pct_studied"] = ((@word_info["number_studied"]/@total_users.to_f)*100).to_i
-      @word_info["easiness"] = (word.average_easiness_factor - 1.3)/1.2
-      @word_info["interval"] = word.average_interval
-      @word_info["failed"] = word.number_failed
-      @word_list << @word_info
-    end
 
     # Sort the word list
     @word_list.sort_by! do |word|
@@ -66,7 +48,14 @@ class Teacher::DashboardController < ApplicationController
         else
           word["order"]
       end
-
     end
+  end
+
+  def usage
+    authorize! :read, :statistics
+    @device_usage = ReportCache.get_data_with_key("device_usage")
+    @user_review_count = ReportCache.get_data_with_key("user_review_count")
+    @reviews_over_semester = ReportCache.get_data_with_key("reviews_over_semester")
+    @reviews_since_registering = ReportCache.get_data_with_key("reviews_since_registering")
   end
 end

@@ -13,6 +13,7 @@
       <thead>
         <tr>
           <th>Word</th>
+          <th>Meaning</th>
           <th>Total reviews</th>
           <th>Reviews this week</th>
           <th>% of registered students who have studied</th>
@@ -42,6 +43,7 @@
            %>
           <tr class="<%= row_class %>">
             <td><%= word["expression"] %></td>
+            <td><%= word["meaning"] %></td>
             <td><%= word["total_reviews"] %></td>
             <td><%= word["reviews_this_week"] %></td>
             <td><%= word["number_studied"] %> of <%= @total_users %> students (<%= word["pct_studied"] %>%)</td>
