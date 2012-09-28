@@ -27,7 +27,8 @@ namespace :reports do
             :prepare_word_list,
             :prepare_device_usage,
             :prepare_user_review_count,
-            :prepare_reviews_over_semester] do
+            :prepare_reviews_over_semester,
+            :prepare_reviews_since_registering] do
     puts "All reports prepared"
     Timer.print "total"
   end
