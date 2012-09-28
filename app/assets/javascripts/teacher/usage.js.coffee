@@ -79,7 +79,7 @@ if window.charts?
     reviews_since_registering = new Highcharts.Chart({
     chart: {
       renderTo: 'reviews-since-registering',
-      type: 'spline'
+      type: 'area'
     },
     title: {text: 'Reviews since registering'},
     xAxis: {
@@ -89,32 +89,25 @@ if window.charts?
       )
     },
     yAxis: {
-      title: {text: 'Average # of reviews'}
+      title: {text: 'Total # of reviews'}
+    },
+    plotOptions: {
+      area: {
+        stacking: 'normal'
+      }
     },
     series: [
       {
-        name: 'Average Reviews for All Users',
+        name: 'Total Active User Reviews',
         data: _.map(window.charts.reviews_since_registering, (val) ->
-          val.average
+          val.total_active
         )
       },
       {
-        name: 'Active User Average Reviews',
+        name: 'Total Inactive User Reviews',
         data: _.map(window.charts.reviews_since_registering, (val) ->
-          val.average_active
+          val.total_inactive
         )
-      },
-      {
-        name: 'Inactive User Average Reviews',
-        data: _.map(window.charts.reviews_since_registering, (val) ->
-          val.average_inactive
-        )
-      },
-      {
-      name: 'Users Registered',
-      data: _.map(window.charts.reviews_since_registering, (val) ->
-        val.total_users
-      )
-      },
+      }
     ]
     })
