@@ -1,5 +1,35 @@
 if window.charts?
   jQuery(document).ready ->
+    genders = new Highcharts.Chart({
+      chart: {
+        renderTo: 'gender-chart',
+        type: 'bar'
+      },
+      title: {
+        text: 'Users by Gender and Active status'
+      },
+      xAxis: {
+        categories: _.keys(window.charts.genders),
+        title: 'Gender'
+      },
+      yAxis: {
+        title: {text: 'Number of Users'}
+      },
+      series: [{
+        name: 'Total Users',
+        data: _.map(window.charts.genders, (d) ->
+          return d.total
+        )
+      },
+      {
+        name: 'Active Users',
+        data: _.map(window.charts.genders, (d) ->
+          return d.active
+        )
+        },
+      ]
+    })
+
     device_usage = new Highcharts.Chart({
       chart: {
           renderTo: 'device-usage-chart',

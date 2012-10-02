@@ -37,6 +37,40 @@ namespace :reports do
     Timer.start "total"
   end
 
+  task :prepare_genders => :environment do
+    puts "Preparing genders"
+    Timer.start
+
+    users = User.participants.joins(:user_info)
+
+    genders = Hash.new
+    genders["Male"] = {"total" => 0, "active" => 0, "inactive" => 0}
+    genders["Female"] = {"total" => 0, "active" => 0, "inactive" => 0}
+    genders["Unspecified"] = {"total" => 0, "active" => 0, "inactive" => 0}
+
+    users.each do |u|
+      if(u.user_info.gender.male?)
+        ref = genders["Male"]
+      elsif(u.user_info.gender.female?)
+        ref = genders["Female"]
+      else
+        ref = genders["Unspecified"]
+      end
+
+      if(u.active?)
+        ref["active"] += 1
+      else
+        ref["inactive"] += 1
+      end
+
+      ref["total"] += 1
+    end
+
+    ReportCache.store_data_with_key("genders", genders)
+
+    Timer.print
+  end
+
   task :prepare_word_list => :environment do
     # ==== WORD LIST ====
     puts "Preparing Word List"

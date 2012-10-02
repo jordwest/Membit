@@ -53,6 +53,7 @@ class Teacher::DashboardController < ApplicationController
 
   def usage
     authorize! :read, :statistics
+    @genders = ReportCache.get_data_with_key("genders")
     @device_usage = ReportCache.get_data_with_key("device_usage")
     @user_review_count = ReportCache.get_data_with_key("user_review_count")
     @reviews_over_semester = ReportCache.get_data_with_key("reviews_over_semester")
