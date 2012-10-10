@@ -49,6 +49,17 @@ class UserWord < ActiveRecord::Base
     else
       overdue_time = (Time.now - self.next_due) / 86400 # seconds -> days
     end
+
+    # Find the previous review of this word
+    previous_review = self.reviews.order(:created_at).last
+    if(previous_review.nil?)
+      previous_time_to_answer = nil
+      previous_answer = nil
+    else
+      previous_time_to_answer = previous_review.time_to_answer
+      previous_answer = previous_review.user_rated_answer
+    end
+
     new_review.update_attributes({:was_new => self.new_card,
                                  :previous_interval => self.interval,
                                  :was_due => self.next_due,
@@ -63,7 +74,9 @@ class UserWord < ActiveRecord::Base
                                  :user_role => self.user.role.to_s,
                                  :actual_interval => self.interval + overdue_time,
                                  :was_failed => self.failed,
-                                 :previous_attempts => self.attempts})
+                                 :previous_attempts => self.attempts,
+                                 :previous_time_to_answer => previous_time_to_answer,
+                                 :previous_answer => previous_answer})
     new_review.save
 
     self.last_review = Time.now

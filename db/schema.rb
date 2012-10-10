@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928044417) do
+ActiveRecord::Schema.define(:version => 20121010022328) do
 
   create_table "app_logs", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "type"
-    t.text     "details",    :limit => 255
-    t.integer  "var1"
-    t.integer  "var2"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer   "user_id"
+    t.string    "type"
+    t.text      "details"
+    t.integer   "var1"
+    t.integer   "var2"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   add_index "app_logs", ["user_id"], :name => "index_app_logs_on_user_id"
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(:version => 20120928044417) do
   end
 
   create_table "report_caches", :force => true do |t|
-    t.string   "key"
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string    "key"
+    t.text      "data"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   create_table "reviews", :force => true do |t|
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(:version => 20120928044417) do
     t.float     "actual_interval"
     t.boolean   "was_failed"
     t.integer   "previous_attempts"
+    t.integer   "previous_answer"
+    t.float     "previous_time_to_answer"
   end
 
   add_index "reviews", ["user_word_id"], :name => "index_reviews_on_user_word_id"
@@ -109,16 +111,16 @@ ActiveRecord::Schema.define(:version => 20120928044417) do
   add_index "user_words", ["word_id"], :name => "index_user_words_on_word_id"
 
   create_table "users", :force => true do |t|
-    t.string   "registration_code"
-    t.datetime "last_login"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "password_digest"
-    t.string   "email"
-    t.string   "role"
-    t.datetime "last_pageview"
-    t.string   "remote_debug_code"
-    t.integer  "reviews_count"
+    t.string    "registration_code"
+    t.timestamp "last_login"
+    t.timestamp "created_at",        :null => false
+    t.timestamp "updated_at",        :null => false
+    t.string    "password_digest"
+    t.string    "email"
+    t.string    "role"
+    t.timestamp "last_pageview"
+    t.string    "remote_debug_code"
+    t.integer   "reviews_count"
   end
 
   create_table "words", :force => true do |t|
