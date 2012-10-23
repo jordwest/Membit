@@ -3,15 +3,15 @@ Predicting Responses to Spaced Repetition Flash Cards with Machine Learning Tech
 -----------------------
 
 Other repositories for this project:
- 1.  [Thesis Report](https://github.com/jordwest/Thesis-Report)
- 2.  [Supporting Files](http://www.github.com/jordwest/thesis)
+ 1.  [Thesis Report](https://github.com/jordwest/Thesis-Report#predicting-responses-to-spaced-repetition-flash-cards-with-machine-learning-techniques)
+ 2.  [Supporting Files](http://www.github.com/jordwest/thesis#predicting-responses-to-spaced-repetition-flash-cards-with-machine-learning-techniques)
  3.  Membit online learning software (Current)
 
- Membit
- ---------------
+Membit
+---------------
 
- This repository contains the online learning environment source code.
- It's written with Rails 3.2.6 and Ruby 1.9, but it will likely work on newer
- versions of Rails before 4.0.
+This repository contains the online learning environment source code.
+It's written with Rails 3.2.6 and Ruby 1.9, but it will likely work on newer
+versions of Rails before 4.0.
 
- For more information on the project, [see this repo](https://github.com/jordwest/Thesis-Report).
+For more information on the project, [see this repo](https://github.com/jordwest/Thesis-Report#predicting-responses-to-spaced-repetition-flash-cards-with-machine-learning-techniques).
